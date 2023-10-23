@@ -1,0 +1,77 @@
+1 Karametra, God of Harvests
+1 Admonition Angel (ZNC) 10
+1 Ancient Greenwarden (PZNR) 178p
+1 Arcane Signet (CMM) 367 #!RAMP
+1 Arctic Treeline (KHM) 249
+1 Augur of Autumn (PMID) 168p
+1 Avacyn's Pilgrim (MIC) 132
+1 Avenger of Zendikar (C13) 135
+1 Awaken the Woods (BRO) 170
+1 Beast Whisperer (PGRN) 123p
+1 Beast Within (MB1) 1134
+1 Canopy Vista (CMM) 989
+1 Command Tower (ELD) 333
+1 Courser of Kruphix (CMM) 888
+1 Cultivate (CMM) 889
+1 Delighted Halfling (LTR) 158
+1 Druid Class (AFR) 180
+1 Elesh Norn, Mother of Machines (ONE) 10
+1 Elven Chorus (LTR) 160
+1 Elvish Mystic (CMM) 284
+1 Emeria Angel (IMA) 20
+1 Emeria Shepherd (BFZ) 22
+1 Eternal Witness (CMM) 286
+1 Evolving Wilds (MB1) 1665
+1 Farhaven Elf (CMA) 109
+1 Felidar Retreat (CMM) 821
+19 Forest (ELD) 266
+1 Generous Gift (CMM) 26
+1 Ghalta and Mavren (MOM) 225
+1 Green Sun's Twilight (ONE) 169
+1 Harmonize (MB1) 1234
+1 Harrow (CMA) 115
+1 Heroic Intervention (CMM) 295
+1 Kodama's Reach (ZNC) 73
+1 Krosan Verge (C20) 285
+1 Lifecrafter's Bestiary (C20) 244
+1 Llanowar Elves (MB1) 1262
+1 Lotus Cobra (ZNR) 307
+1 Maja, Bretagard Protector (KHM) 327
+1 Mirari's Wake (CMM) 928
+1 Myriad Landscape (C20) 292
+1 Nissa, Ascended Animist (ONE) 327
+1 Nissa, Resurgent Animist (MAT) 22
+1 Oran-Rief Hydra (DDR) 16
+1 Path to Exile (2X2) 23 #!REMOVAL
+6 Plains (UND) 87
+1 Radiant Grove (DMU) 253
+1 Rampaging Baloths (C19) 176
+1 Rampant Growth (M10) 201
+1 Reclamation Sage (M15) 194
+1 Retreat to Emeria (MB1) 210
+1 Retreat to Kazandu (ZNC) 78
+1 Sakura-Tribe Elder (NCC) 307
+1 Scattered Groves (CMM) 1026
+1 Scute Swarm (ZNR) 203
+1 Seer's Sundial (CM2) 214
+1 Selesnya Sanctuary (C19) 272
+1 Shamanic Revelation (AFC) 171
+1 Silverback Elder (DMU) 177
+1 Sol Ring (C19) 221 #!RAMP
+1 Soul of the Harvest (AVR) 195
+1 Sporemound (JMP) 433
+1 Springbloom Druid (MH1) 181
+1 Sun Titan (C19) 76
+1 Sunpetal Grove (LTC) 336
+1 Swords to Plowshares (CMM) 841 #!REMOVAL
+1 Temple Garden (GRN) 258
+1 Terramorphic Expanse (CM2) 273
+1 Tiller Engine (DMC) 20
+1 Tireless Provisioner (MH2) 180
+1 Tireless Tracker (PLIST) 435
+1 Topiary Stomper (SNC) 160
+1 Tribute to the World Tree (PMOM) 211p
+1 Whitemane Lion (EMA) 37
+1 Wood Elves (CMA) 170
+1 Yasharn, Implacable Earth (ZNR) 240
+1 Zendikar's Roil (JMP) 448
