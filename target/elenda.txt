@@ -1,0 +1,83 @@
+1 Elenda, the Dusk Rose (2X2) 207
+1 Anguished Unmaking (LTC) 265
+1 Arcane Signet (NCC) 360
+1 Ashnod's Altar (MB1) 1546
+1 Astarion, the Decadent (CLB) 265
+1 Astarion's Thirst (CLB) 114
+1 Bastion of Remembrance (IKO) 73
+1 Blade of the Bloodchief (C17) 204
+1 Blood Artist (J22) 117
+1 Bloodline Keeper // Lord of Lineage (SLD) 1210
+1 Bojuka Bog (MB1) 1660
+1 Bolas's Citadel (WAR) 79
+1 Brightclimb Pathway // Grimclimb Pathway (ZNR) 285
+1 Butcher of Malakir (DDK) 18
+1 Call to the Feast (XLN) 219
+1 Captivating Vampire (C17) 104
+1 Cathars' Crusade (JMP) 95
+1 Caves of Koilos (C21) 283
+1 Champion of Dusk (RIX) 64
+1 Command Tower (C19) 237
+1 Cordial Vampire (MH1) 83
+1 Cruel Celebrant (WAR) 188
+1 Damn (MH2) 80
+1 Debt to the Deathless (DGM) 64
+1 Despark (AFC) 184
+1 Drana and Linvala (MOM) 222
+1 Drana, Liberator of Malakir (JMP) 225
+1 Drivnod, Carnage Dominus (ONE) 305
+1 Edgar, Charmed Groom // Edgar Markov's Coffin (VOW) 236
+1 Elas il-Kor, Sadistic Pilgrim (DMU) 297
+1 Etchings of the Chosen (MH1) 198
+1 Exquisite Blood (SLD) 206
+1 Falkenrath Noble (JMP) 232
+1 Feast of the Victorious Dead (MAT) 30
+1 Felisa, Fang of Silverquill (CLB) 845
+1 Forerunner of the Legion (RIX) 9
+1 Fracture (STX) 378
+1 Gift of Immortality (THS) 14
+1 Godless Shrine (RNA) 248
+1 Indulgent Aristocrat (SOI) 118
+1 Indulging Patrician (M21) 219
+1 Isolated Chapel (DOM) 241
+1 Kaya's Wrath (RNA) 187
+1 Legion Lieutenant (RIX) 163
+1 Legion's Landing // Adanto, the First Fort (PCTB) 2
+1 Malakir Bloodwitch (C17) 116
+1 Markov Baron (MAT) 14
+1 Mavren Fein, Dusk Apostle (XLN) 24
+1 Mirkwood Bats (LTR) 95
+1 Mortify (CMA) 187
+1 Not Dead After All (WOE) 101
+1 Olivia's Wrath (VOC) 20
+1 Orzhov Basilica (CMA) 264
+1 Orzhov Signet (GPT) 155
+1 Path of Ancestry (C20) 298
+6 Plains (ELD) 250
+1 Restless Fortress (WOE) 259
+1 Sanctum Seeker (XLN) 120
+1 Sanguine Bond (WOT) 35
+1 Scoured Barrens (MB1) 1686
+1 Shattered Sanctum (VOW) 264
+1 Sign in Blood (M15) 114
+1 Skullclamp (MB1) 1630
+1 Sol Ring (MB1) 1633
+1 Sorin, Imperious Bloodlord (M20) 115
+1 Sorin, Vengeful Bloodlord (WAR) 217
+13 Swamp (ELD) 258
+1 Swords to Plowshares (IMA) 36
+1 Tainted Field (DDK) 34
+1 Talisman of Hierarchy (MH1) 233
+1 Temple of Silence (CLB) 924
+1 Teysa Karlov (RNA) 212
+1 The Ozolith (LTC) 351
+1 Twilight Prophet (SLD) 1304
+1 Vampire Nighthawk (C20) 140
+1 Vault of Champions (CMR) 360
+1 Victimize (EMA) 113
+1 Village Rites (M21) 126
+1 Vindicate (MH2) 294
+1 Viscera Seer (CMR) 158
+1 Vito, Thorn of the Dusk Rose (M21) 127
+1 Vraan, Executioner Thane (ONE) 309
+1 Welcoming Vampire (VOW) 287

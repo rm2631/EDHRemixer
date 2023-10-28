@@ -1,5 +1,5 @@
 import os
-from utils.Remix import Remix
+from utils.Remixer import Remixer
 
 def add_decks_to_remix(remix, folder_name):
     for file in os.listdir(folder_name):
@@ -13,10 +13,10 @@ def add_decks_to_remix(remix, folder_name):
 
 def main():
     ## load all files in folder called "source" in a list
-    remix = Remix()
-    add_decks_to_remix(remix, "source")
-    add_decks_to_remix(remix, "target")
-    remix.reallocate_cards()
+    remixer = Remixer()
+    remixer.add_deck("source", True)
+    remixer.add_deck("target", False)
+    remixer.reallocate()
 
 if __name__ == "__main__":
     main()

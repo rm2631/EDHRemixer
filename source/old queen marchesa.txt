@@ -1,0 +1,92 @@
+1 Queen Marchesa (CN2) 78
+1 Anguished Unmaking (PSOI) 242p
+1 Arcane Signet (DMC) 177
+1 Archon of Coronation (NCC) 192
+1 Arid Mesa (MH2) 244
+1 Assemble the Legion (ONC) 115
+1 Batwing Brume (ARC) 80
+1 Black Market Connections (CLB) 669
+1 Blasphemous Act (CLB) 780
+1 Blind Obedience (C17) 57
+1 Blood Crypt (RNA) 245
+1 Bloodstained Mire (KTK) 230
+1 Bloodthirsty Blade (CLB) 854
+1 Boros Charm (ONC) 116
+1 Boros Garrison (C19) 233
+1 Boros Signet (CMR) 459
+1 Brash Taunter (CLB) 782
+1 Breena, the Demagogue (C21) 1 *F*
+1 Caves of Koilos (DMU) 244
+1 Command Tower (DMC) 204
+1 Commander's Sphere (DMC) 181
+1 Court of Ambition (CMR) 114
+1 Court of Grace (ONC) 62
+1 Court of Ire (CMR) 170
+1 Crackling Doom (C20) 205
+1 Crawlspace (DMR) 375
+1 Curse of Opulence (CLB) 786
+1 Custodi Lich (NCC) 244
+1 Deflecting Palm (KTK) 173
+1 Disrupt Decorum (CLB) 789
+1 Duelist's Heritage (JMP) 101
+1 Dusk // Dawn (CLB) 691
+1 Emberwilde Captain (CMR) 175
+1 Esper Sentinel (MH2) 328
+1 Evolving Wilds (BRO) 261
+1 Exotic Orchard (DMC) 209
+1 Foreboding Ruins (DMC) 211
+1 Ghostly Prison (ONC) 71
+1 Godless Shrine (RNA) 248
+1 High Priest of Penance (CLB) 848
+1 Inkshield (C21) 71
+1 Isolated Chapel (DOM) 241
+1 Kambal, Consul of Allocation (KLD) 183
+1 Kami of False Hope (BOK) 10
+1 Karazikar, the Eye Tyrant (AFC) 49 *F*
+1 Kardur, Doomscourge (KHM) 216
+1 Keeper of the Accord (CMR) 621
+1 Lightning Helix (2X2) 243
+1 Mangara, the Diplomat (M21) 27
+1 Marchesa's Decree (CN2) 44
+1 Marsh Flats (MH2) 248
+1 Mind Stone (CLB) 325
+1 Mob Rule (VOC) 147
+1 Mother of Runes (CLB) 702
+2 Mountain (ELD) 262
+1 Noble Heritage (CLB) 35
+1 Orzhov Advokist (MIC) 91
+1 Orzhov Basilica (DMC) 224
+1 Orzhov Signet (CLB) 867
+1 Phyrexian Arena (ONE) 384
+1 Phyrexian Vindicator (ONE) 27
+7 Plains (UND) 87
+1 Rakdos Carnarium (DMC) 226
+1 Rakdos Charm (VOC) 156
+1 Rakdos Signet (SCD) 272
+1 Reflecting Pool (CLB) 358
+1 Revenge of Ravens (ELD) 104
+1 Rite of the Raging Storm (NCC) 274
+1 Royal Assassin (DMR) 310
+1 Ruinous Ultimatum (PIKO) 204p
+1 Sacred Foundry (GRN) 254
+1 Selfless Squire (C21) 103
+1 Shadowblood Ridge (NCC) 426
+1 Shiny Impetus (CLB) 194
+1 Skyline Despot (CN2) 57
+1 Smoldering Marsh (DMC) 234
+1 Smothering Tithe (PRNA) 22p
+1 Sol Ring (DMC) 190
+1 Spectacular Showdown (CLB) 679
+1 Sulfurous Springs (DMU) 256
+1 Sunforger (CMR) 473
+2 Swamp (UND) 91
+1 Swords to Plowshares (DMR) 275
+1 Tainted Field (CLB) 919
+1 Tainted Peak (VOC) 184
+1 Teferi's Protection (STA) 74
+1 Tenuous Truce (NCC) 95
+1 Termination Facilitator (J22) 28
+1 Teysa, Envoy of Ghosts (C21) 230
+1 Wedding Ring (VOC) 32
+1 Windborn Muse (DMR) 278
+1 Xantcha, Sleeper Agent (PLIST) 996

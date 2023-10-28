@@ -1,0 +1,83 @@
+1 Wulfgar of Icewind Dale (AFC) 56
+1 Aggravated Assault (WOT) 39
+1 Arcane Signet (NCC) 360
+1 Beast Whisperer (GRN) 123
+1 Beast Within (C20) 168
+1 Beastmaster Ascension (C16) 142
+1 Blasphemous Act (WHO) 472
+1 Blossoming Bogbeast (C21) 59
+1 Captain Lannery Storm (MUL) 20
+1 Cemetery Prowler (VOW) 191
+1 Chaos Warp (WHO) 473
+1 Cinder Glade (WHO) 262
+1 Command Tower (WHO) 265
+1 Cragcrown Pathway // Timbercrown Pathway (ZNR) 261
+1 Cultivate (M21) 177
+1 Delina, Wild Mage (AFR) 138
+1 Domri, Anarch of Bolas (WAR) 191
+1 Doors of Durin (LTR) 199
+1 Drakuseth, Maw of Flames (M20) 136
+1 Druids' Repository (AVR) 176
+1 Durnan of the Yawning Portal (CLB) 635
+1 Elder Gargaroth (M21) 179
+1 Emergent Woodwurm (MOC) 124
+1 Etali, Primal Storm (C20) 151
+1 Exotic Orchard (C20) 273
+1 Farseek (M13) 170
+1 Fires of Yavimaya (MB1) 1425
+11 Forest (ELD) 266
+1 Game Trail (AFC) 240
+1 Garruk's Uprising (WOT) 53
+1 Giant Inheritance (WOC) 17
+1 Goblin Anarchomancer (MH2) 200
+1 Goldspan Dragon (J22) 550
+1 Goreclaw, Terror of Qal Sisma (MUL) 27
+1 Grand Warlord Radha (DOM) 195
+1 Gruul Signet (MB1) 1589
+1 Gruul Turf (C19) 250
+1 Hanweir Battlements (EMN) 204
+1 Hellrider (DKA) 93
+1 Heroic Intervention (WHO) 233
+1 Horn of the Mark (LTR) 241
+1 Ilharg, the Raze-Boar (WAR) 133
+1 Inferno Titan (CMM) 235
+1 Karlach, Fury of Avernus (CLB) 186
+1 Kessig Wolf Run (CLB) 898
+1 Klauth, Unrivaled Ancient (AFC) 320
+1 Kodama's Reach (MMA) 151
+1 Kogla, the Titan Ape (IKO) 162
+1 Krenko, Tin Street Kingpin (WAR) 137
+1 Krosan Grip (C20) 181
+1 Laelia, the Blade Reforged (CLB) 801
+1 Lightning Greaves (WHO) 243
+1 Llanowar Elves (3ED) 211
+1 Mage Slayer (ARB) 57
+1 Moraug, Fury of Akoum (ZNR) 150
+1 Mossfire Valley (C20) 290
+1 Mosswort Bridge (C18) 267
+8 Mountain (ELD) 262
+1 Nature's Claim (EMA) 178
+1 Nature's Lore (5ED) 316
+1 Pathbreaker Ibex (C15) 38
+1 Primeval Herald (J22) 42
+1 Radha, Heir to Keld (DMR) 446
+1 Rampant Growth (MB1) 1303
+1 Relentless Assault (CMR) 416
+1 Return of the Wildspeaker (PELD) 172p
+1 Rhythm of the Wild (NEC) 142
+1 Rishkar's Expertise (AFC) 170
+1 Rising of the Day (LTR) 145
+1 Rockfall Vale (WHO) 298
+1 Rootbound Crag (WHO) 300
+1 Ruby, Daring Tracker (WOE) 212
+1 Rulik Mons, Warren Chief (DMU) 217
+1 Savage Ventmaw (BBD) 229
+1 Sol Ring (MB1) 1633
+1 Spire Garden (CLB) 361
+1 Stomping Ground (GTC) 247
+1 Sword of the Animist (E01) 89
+1 Tectonic Giant (THB) 158
+1 Three Visits (WHO) 235
+1 Tuya Bearclaw (CMR) 292
+1 Werewolf Pack Leader (AFR) 211
+1 Wrap in Vigor (CNS) 183
