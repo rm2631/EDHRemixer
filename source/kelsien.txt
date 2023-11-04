@@ -1,0 +1,87 @@
+1 Kelsien, the Plague (C20) 11
+1 Ankle Shanker (KTK) 164
+1 Arcane Signet (CMM) 367
+1 Archetype of Finality (BNG) 58
+1 Aspect of Gorgon (JOU) 60
+1 Assault Intercessor (40K) 104
+1 Basilisk Collar (MB1) 1547
+1 Battlefield Forge (LTC) 296
+1 Battlemage's Bracers (C21) 48
+1 Bladebrand (MB1) 576
+1 Blood Crypt (RNA) 245
+1 Blood Cultist (ALA) 157
+1 Bojuka Bog (MB1) 1660
+1 Boros Charm (ONC) 116
+1 Boros Signet (CMM) 942
+1 Call of the Death-Dweller (IKO) 78
+1 Caves of Koilos (M15) 241
+1 Clifftop Retreat (DMR) 241
+1 Command Tower (ELD) 333
+1 Crackling Doom (C20) 205
+1 Daxos the Returned (C15) 43
+1 Death Pits of Rath (8ED) 125
+1 Despark (WAR) 190
+1 Dire Tactics (IKO) 183
+1 Dragonskull Summit (LTC) 304
+1 Drown in Ichor (ONE) 91
+1 Drumbellower (NEC) 40
+1 Evolving Wilds (MB1) 1665
+1 Exotic Orchard (CM2) 250
+1 Falthis, Shadowcat Familiar (CMR) 126
+1 Fighter Class (AFR) 222
+1 Forge Anew (LTR) 17
+1 Fracture (STX) 378
+1 General's Enforcer (IKO) 188
+1 Gift of Doom (C19) 17
+1 Goblin Sharpshooter (SLD) 18
+1 Godless Shrine (GTC) 242
+1 Gorgon Flail (M10) 211
+1 Gorgon's Head (BNG) 158
+1 Harvester of Souls (DDQ) 60
+1 Humble Defector (C20) 154
+1 Isolated Chapel (LTC) 318
+1 Jirina, Dauntless General (MAT) 32
+1 Kalemne, Disciple of Iroas (C15) 45
+1 Magewright's Stone (DIS) 162
+1 Mari, the Killing Quill (NCC) 89
+1 Minthara, Merciless Soul (CLB) 286
+1 Mirrodin Avenged (MOM) 118
+1 Morbid Opportunist (MID) 113
+3 Mountain (UND) 93
+1 Mythos of Snapdax (IKO) 24
+1 Nomad Outpost (CMM) 1016
+1 Offer Immortality (ONE) 102
+1 Open the Armory (CMR) 34
+1 Orcish Bowmasters (LTR) 103
+1 Orzhov Signet (C20) 247
+1 Otharri, Suns' Glory (ONC) 3
+1 Painful Truths (BFZ) 120
+1 Patriar's Seal (CLB) 332
+5 Plains (UND) 87
+1 Quietus Spike (NCC) 377
+1 Rakdos Signet (C20) 249
+1 Read the Bones (CMM) 182
+1 Retreat to Hagra (C18) 116
+1 Revel in Riches (MB1) 755
+1 Rogue's Passage (CMM) 426
+1 Ruinous Ultimatum (PIKO) 204p
+1 Rune of Mortality (KHM) 108
+1 Sacred Foundry (GTC) 245
+1 Savai Triome (PIKO) 253p
+1 Slaughter Specialist (MID) 122
+1 Sol Ring (C19) 221
+1 Spectator Seating (CMM) 427
+1 Sting, the Glinting Dagger (LTR) 250
+1 Sun Titan (C19) 76
+8 Swamp (UND) 91
+1 Swiftfoot Boots (CLB) 339
+1 Swords to Plowshares (CMM) 841
+1 Termination Facilitator (J22) 28
+1 Thornbite Staff (MOR) 145
+1 Vault of Champions (CMM) 436
+1 Vault of the Archangel (CLB) 927
+1 Void Beckoner (IKO) 104
+1 Vorpal Sword (AFR) 124
+1 White Plume Adventurer (CLB) 558
+1 You Are Already Dead (NEO) 129
+1 Zagras, Thief of Heartbeats (ZNR) 241

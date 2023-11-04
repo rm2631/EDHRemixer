@@ -1,6 +1,7 @@
 import os
 from utils.Remixer import Remixer
 
+
 def add_decks_to_remix(remix, folder_name):
     for file in os.listdir(folder_name):
         if file.endswith(".txt"):
@@ -17,6 +18,8 @@ def main():
     remixer.add_deck("source", True)
     remixer.add_deck("target", False)
     remixer.reallocate()
+    input()
+
 
 if __name__ == "__main__":
     main()
