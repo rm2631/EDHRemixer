@@ -1,10 +1,7 @@
-1 Abzan Battle Priest
-1 Abzan Falconer
 1 Access Tunnel
 1 Acclaimed Contender
 1 Aetherflux Reservoir
 1 Aggravated Assault
-1 Ajani, the Greathearted
 1 Akiri, Fearless Voyager
 1 Alora, Merry Thief
 1 Angel of Condemnation
@@ -14,6 +11,7 @@
 1 Anguished Unmaking
 1 Anguished Unmaking
 1 Animate Dead
+1 Apex Altisaur
 1 Arcades, the Strategist
 1 Arcane Bombardment
 1 Arcane Signet
@@ -26,6 +24,7 @@
 1 Armored Skyhunter
 1 Aryel, Knight of Windgrace
 1 Assault Formation
+1 Atzocan Seer
 1 Aurelia's Fury
 1 Aurelia, the Warleader
 1 Axebane Guardian
@@ -35,7 +34,6 @@
 1 Bar the Door
 1 Battlefield Forge
 1 Battlefield Forge
-1 Beast Whisperer
 1 Beast Within
 1 Beast Within
 1 Beastmaster Ascension
@@ -43,14 +41,13 @@
 1 Bident of Thassa
 1 Bident of Thassa
 1 Blackblade Reforged
-1 Blackblade Reforged
 1 Blasphemous Act
 1 Blasphemous Act
 1 Blood Crypt
 1 Blossoming Bogbeast
 1 Blossoming Defense
 1 Blue Sun's Zenith
-1 Bone Sabres
+1 Boros Charm
 1 Boros Charm
 1 Boros Garrison
 1 Boros Reckoner
@@ -58,8 +55,6 @@
 1 Boros Signet
 1 Bountiful Promenade
 1 Brainstorm
-1 Branching Evolution
-1 Branchloft Pathway
 1 Brash Taunter
 1 Brave the Sands
 1 Breaching Leviathan
@@ -77,13 +72,14 @@
 1 Cemetery Prowler
 1 Chain Reaction
 1 Chain Reaction
-1 Champion of Lambholt
 1 Changeling Outcast
 1 Chaos Warp
 1 Charix, the Raging Isle
 1 Cinder Glade
 1 Cinder Glade
+1 Cinder Glade
 1 City on Fire
+1 Clifftop Retreat
 1 Clifftop Retreat
 1 Clifftop Retreat
 1 Cloudshift
@@ -94,7 +90,7 @@
 1 Command Tower
 1 Command Tower
 1 Commander's Sphere
-1 Conclave Mentor
+1 Congregation at Dawn
 1 Conjurer's Closet
 1 Counterspell
 1 Court of Ardenvale
@@ -115,14 +111,13 @@
 1 Decadent Dragon
 1 Decadent Dragon
 1 Deep-Sea Kraken
-1 Defiler of Vigor
 1 Deflecting Palm
 1 Delina, Wild Mage
 1 Demanding Dragon
 1 Demonic Tutor
 1 Demonlord Belzenlok
 1 Despark
-1 Divine Reckoning
+1 Dinosaurs on a Spaceship
 1 Doors of Durin
 1 Double Vision
 1 Draconic Disciple
@@ -137,24 +132,26 @@
 1 Drakuseth, Maw of Flames
 1 Drakuseth, Maw of Flames
 1 Drana and Linvala
-1 Drizzt Do'Urden
 1 Drowned Catacomb
 1 Druids' Repository
 1 Durnan of the Yawning Portal
 1 Dusk // Dawn
-1 Duskshell Crawler
 1 Earthquake
 1 Earthquake Dragon
 1 Eerie Interlude
 1 Eerie Interlude
 1 Elder Gargaroth
+1 Elemental Bond
 1 Elturel Survivors
 1 Embercleave
 1 Emergent Woodwurm
 1 Engulf the Shore
 1 Ephemerate
+1 Etali, Primal Conqueror
+1 Etali, Primal Storm
 1 Evolving Wilds
 1 Evolving Wilds
+1 Exotic Orchard
 1 Exotic Orchard
 1 Exotic Orchard
 1 Expel the Interlopers
@@ -174,36 +171,34 @@
 1 Flameblast Dragon
 1 Flumph
 1 Foe-Razer Regent
-1 Force of Savagery
-1 Forgotten Ancient
+1 Forerunner of the Empire
 1 Fortified Rampart
-1 Fortified Village
 1 Freed from the Real
 1 Frontier Siege
 1 Furycalm Snarl
-1 Gaea's Gift
 1 Game Trail
 1 Game Trail
 1 Ganax, Astral Hunter
 1 Garruk's Uprising
 1 Garruk's Uprising
-1 Gavony Township
+1 Garruk's Uprising
+1 Ghalta, Stampede Tyrant
 1 Giant Inheritance
 1 Gingerbrute
 1 Gisela, Blade of Goldnight
+1 Gishath, Sun's Avatar
 1 Glacial Fortress
 1 Goblin Anarchomancer
 1 Godless Shrine
 1 Goldspan Dragon
+1 Goring Ceratops
 1 Goro-Goro and Satoru
 1 Goro-Goro, Disciple of Ryusei
 1 Grand Warlord Radha
 1 Grazilaxx, Illithid Scholar
-1 Greater Good
-1 Greatsword of Tyr
 1 Grim Hireling
+1 Gruul Signet
 1 Gruul Turf
-1 Guardian Augmenter
 1 Guardian of Faith
 1 Guardian of Ghirapur
 1 Guttersnipe
@@ -211,7 +206,6 @@
 1 Halvar, God of Battle
 1 Hanweir Battlements
 1 Harbinger of the Hunt
-1 Hardened Scales
 1 Haven of the Spirit Dragon
 1 Hazardous Blast
 1 Heartflame Duelist
@@ -225,15 +219,14 @@
 1 Horn of the Mark
 1 Hour of Devastation
 1 Hover Barrier
+1 Huatli, Warrior Poet
 1 Hunter's Prowess
 1 Hurloon Battle Hymn
-1 Icingdeath, Frost Tyrant
 1 Imodane's Recruiter
 1 Imodane, the Pyrohammer
 1 Inferno Titan
 1 Ingenious Infiltrator
 1 Inkwell Leviathan
-1 Inspiring Call
 1 Inspiring Veteran
 1 Invoke the Divine
 1 Island
@@ -253,18 +246,21 @@
 1 Jaya's Immolating Inferno
 1 Jeska's Will
 1 Jeskai Barricade
+1 Jetmir's Garden
 1 Jungle Barrier
+1 Jungle Shrine
 1 Junji, the Midnight Sky
 1 Kaalia of the Vast
 1 Kaalia, Zenith Seeker
 1 Kaito, Dancing Shadow
 1 Kaldra Compleat
-1 Kami of Whispered Hopes
 1 Kardur, Doomscourge
 1 Kazandu Refuge
 1 Kellan, the Fae-Blooded
 1 Kenessos, Priest of Thassa
 1 Kessig Wolf Run
+1 Kinjalli's Caller
+1 Kinjalli's Sunwing
 1 Kinsbaile Cavalier
 1 Kiora Bests the Sea God
 1 Kiora's Follower
@@ -272,16 +268,16 @@
 1 Kiora, Master of the Depths
 1 Knight Exemplar
 1 Knight of the Ebon Legion
+1 Knight of the Stampede
 1 Knight of the White Orchid
 1 Knights' Charge
-1 Kodama of the West Tree
 1 Kodama's Reach
+1 Kogla and Yidaro
 1 Kogla, the Titan Ape
 1 Krenko, Tin Street Kingpin
-1 Krosan Grip
-1 Lae'zel, Vlaakith's Champion
 1 Laelia, the Blade Reforged
 1 Lagomos, Hand of Hatred
+1 Last March of the Ents
 1 Last March of the Ents
 1 Lathliss, Dragon Queen
 1 Leonin Shikari
@@ -289,17 +285,15 @@
 1 Lightning Bolt
 1 Lightning Greaves
 1 Lightning Greaves
-1 Lightning Greaves
 1 Lightning Helix
-1 Lion Sash
 1 Lorthos, the Tidemaker
 1 Loxodon Warhammer
 1 Loyal Apprentice
-1 Luminarch Aspirant
 1 Luxury Suite
 1 Mage Slayer
 1 Magmaquake
 1 Mana Geyser
+1 Marauding Raptor
 1 Marsh Flats
 1 Meekstone
 1 Merry, Esquire of Rohan
@@ -307,9 +301,9 @@
 1 Mistblade Shinobi
 1 Mithril Coat
 1 Mithril Coat
-1 Mithril Coat
 1 Mizzium Mortars
 1 Mnemonic Wall
+1 Monster Manual
 1 Monster Manual / Zoological Study
 1 Monstrosity of the Lake
 1 Moon-Circuit Hacker
@@ -320,6 +314,9 @@
 1 Mosswort Bridge
 1 Mosswort Bridge
 1 Mosswort Bridge
+1 Mountain
+1 Mountain
+1 Mountain
 1 Mountain
 1 Mountain
 1 Mountain
@@ -358,11 +355,11 @@
 1 Ominous Seas
 1 Orthion, Hero of Lavabrink
 1 Orzhov Signet
+1 Otepec Huntmaster
 1 Overgrown Battlement
 1 Overgrown Farmland
-1 Overgrown Farmland
 1 Overwhelming Stampede
-1 Ozolith, the Shattered Spire
+1 Path of Ancestry
 1 Path of Ancestry
 1 Path to Exile
 1 Path to Exile
@@ -371,9 +368,9 @@
 1 Perimeter Captain
 1 Phoenix Chick
 1 Phyrexian Vindicator
+1 Polyraptor
 1 Prairie Stream
 1 Price of Progress
-1 Pridemalkin
 1 Primal Amulet
 1 Primal Might
 1 Prime Speaker Zegana
@@ -387,15 +384,16 @@
 1 Quintorius, Loremaster
 1 Radha, Heir to Keld
 1 Radiant Scrollwielder
+1 Raging Swordtooth
 1 Rakdos Signet
 1 Rammas Echor, Ancient Shield
 1 Rampant Growth
 1 Rampant Growth
-1 Rancor
-1 Ranger Class
+1 Ranging Raptors
 1 Rapacious Dragon
 1 Reanimate
 1 Reconnaissance Mission
+1 Regisaur Alpha
 1 Reinforced Ronin
 1 Rejuvenating Springs
 1 Relentless Assault
@@ -408,12 +406,15 @@
 1 Return to Nature
 1 Reverberate
 1 Revitalize
+1 Rhythm of the Wild
 1 Rip Apart
+1 Ripjaw Raptor
 1 Riptide Turtle
 1 Rishkar's Expertise
 1 Rising of the Day
 1 Rising of the Day
 1 Rising of the Day
+1 Rockfall Vale
 1 Rockfall Vale
 1 Rockfall Vale
 1 Rogue's Passage
@@ -422,12 +423,15 @@
 1 Rolling Earthquake
 1 Rootbound Crag
 1 Rootbound Crag
+1 Rootbound Crag
 1 Ruby, Daring Tracker
 1 Rugged Highlands
 1 Ruinous Ultimatum
 1 Rulik Mons, Warren Chief
 1 Rune-Scarred Demon
+1 Runic Armasaur
 1 Sacred Fire
+1 Sacred Foundry
 1 Sacred Foundry
 1 Sacred Foundry
 1 Saheeli, the Sun's Brilliance
@@ -440,12 +444,10 @@
 1 Scourge of Fleets
 1 Scourge of Valkas
 1 Seaside Citadel
-1 Selesnya Signet
+1 Secluded Courtyard
 1 Shadowspear
-1 Shalai, Voice of Plenty
 1 Shattered Sanctum
 1 Shield Sphere
-1 Shield of the Oversoul
 1 Shield-Wall Sentinel
 1 Shipbreaker Kraken
 1 Shivan Oasis
@@ -453,14 +455,13 @@
 1 Sigiled Sword of Valeron
 1 Silent-Blade Oni
 1 Silver-Fur Master
+1 Silverclad Ferocidons
 1 Simic Sky Swallower
-1 Single Combat
 1 Single Combat
 1 Slaughter the Strong
 1 Slinn Voda, the Rising Deep
 1 Slither Blade
 1 Smothering Tithe
-1 Snakeskin Veil
 1 Sol Ring
 1 Sol Ring
 1 Sol Ring
@@ -469,6 +470,7 @@
 1 Spara's Headquarters
 1 Spectator Seating
 1 Spectator Seating
+1 Spire Garden
 1 Spit Flame
 1 Sram, Senior Edificer
 1 Stalwart Shield-Bearers
@@ -476,6 +478,7 @@
 1 Starstorm
 1 Steel Hellkite
 1 Steelshaper's Gift
+1 Stomping Ground
 1 Stomping Ground
 1 Stoneskin
 1 Storm's Wrath
@@ -488,10 +491,8 @@
 1 Sundown Pass
 1 Sunforger
 1 Sunforger
-1 Sungrass Prairie
 1 Sunpetal Grove
 1 Sunscape Familiar
-1 Swiftfoot Boots
 1 Swiftfoot Boots
 1 Sword of Feast and Famine
 1 Sword of Hearth and Home
@@ -510,9 +511,9 @@
 1 Talisman of Indulgence
 1 Tectonic Giant
 1 Teleportation Circle
+1 Temple Altisaur
 1 Temple Garden
 1 Temple of Abandon
-1 Temple of Plenty
 1 Temple of Silence
 1 Temple of Triumph
 1 Temple of Triumph
@@ -525,16 +526,19 @@
 1 The Birth of Meletis
 1 The Circle of Loyalty
 1 The Eternal Wanderer
+1 The Great Henge
 1 The Irencrag
 1 The Master, Multiplied
-1 The Ozolith
 1 The Reaver Cleaver
+1 The Skullspore Nexus
 1 Thornwood Falls
 1 Thousand-Faced Shadow
 1 Thrakkus the Butcher
+1 Thrashing Brontodon
 1 Three Visits
 1 Thrilling Discovery
 1 Thunderbreak Regent
+1 Thunderherd Migration
 1 Thundermaw Hellkite
 1 Timber Gorge
 1 Tocasia's Welcome
@@ -543,16 +547,20 @@
 1 Tournament Grounds
 1 Tower Defense
 1 Training Center
+1 Tranquil Frillback
+1 Trapjaw Tyrant
 1 Tree of Redemption
 1 Triton Shorestalker
 1 Tromokratis
 1 Tuya Bearclaw
 1 Tyrant's Familiar
-1 Tyrite Sanctum
+1 Tyrranax Rex
 1 Unburial Rites
+1 Unclaimed Territory
 1 Unclaimed Territory
 1 Underground River
 1 Unfinished Business
+1 Up the Beanstalk
 1 Up the Beanstalk
 1 Up the Beanstalk
 1 Urabrask's Forge
@@ -562,13 +570,13 @@
 1 Vandalblast
 1 Varragoth, Bloodsky Sire
 1 Vault of Champions
+1 Verdant Sun's Avatar
 1 Verix Bladewing
-1 Vigor
 1 Vine Trellis
 1 Virtue of Courage
-1 Virtue of Loyalty
 1 Virtue of Strength
 1 Voyaging Satyr
+1 Wakening Sun's Avatar
 1 Walking Bulwark
 1 Wall of Blossoms
 1 Wall of Denial
@@ -582,6 +590,7 @@
 1 Wall of Stolen Identity
 1 Wall of Tanglecord
 1 Warleader's Helix
+1 Wayward Swordtooth
 1 Weathered Sentinels
 1 Well of Lost Dreams
 1 Werewolf Pack Leader
@@ -590,4 +599,6 @@
 1 Wrap in Vigor
 1 Wulfgar of Icewind Dale
 1 Yuriko, the Tiger's Shadow
+1 Zacama, Primal Calamity
+1 Zetalpa, Primal Dawn
 1 Éowyn, Fearless Knight
