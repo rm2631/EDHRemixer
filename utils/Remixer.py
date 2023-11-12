@@ -5,14 +5,20 @@ from itertools import groupby
 import pandas as pd
 
 
-class Remixer():
+class Remixer:
     cards = []
 
     def add_deck(self, directory_name: str, source_deck: bool):
+        ## If directory is empty, raise Exception
+        if not os.listdir(directory_name):
+            raise Exception(f"Directory {directory_name} is empty")
+
         for file in os.listdir(directory_name):
             if file.endswith(".txt"):
                 with open(os.path.join(directory_name, file), "r") as file_data:
-                    card_list = self._card_string_to_card(file_data.read(), file.split('.')[0], source_deck)
+                    card_list = self._card_string_to_card(
+                        file_data.read(), file.split(".")[0], source_deck
+                    )
                     self.cards.extend(card_list)
 
     def reallocate(self):
@@ -26,7 +32,7 @@ class Remixer():
             held_cards = [card for card in group_cards if card.held]
             needed_cards = [card for card in group_cards if not card.held]
             for needed_card in needed_cards:
-                if len(held_cards) > 0 :
+                if len(held_cards) > 0:
                     held_card = held_cards.pop()
                     held_card.target_deck_name = needed_card.target_deck_name
                     reallocate_list.append(held_card)
@@ -55,10 +61,12 @@ class Remixer():
             string = f"{card.count} {card.card_name}\n"
             deck_list.append(string)
         ## write the deck list to a file
-        with open(f"reallocated/buy.txt", "w") as f:
+        with open(f"buy.txt", "w") as f:
             f.writelines(deck_list)
 
-    def _card_string_to_card(self, deck_content_string, deck_name, source_deck) -> [Card]:
+    def _card_string_to_card(
+        self, deck_content_string, deck_name, source_deck
+    ) -> [Card]:
         """
         Convert a string of cards to a list of Card objects.
         """
@@ -70,7 +78,7 @@ class Remixer():
                 if source_deck:
                     card_list.append(
                         Card(
-                            1, 
+                            1,
                             name,
                             source_deck_name=deck_name,
                         )
@@ -78,7 +86,7 @@ class Remixer():
                 else:
                     card_list.append(
                         Card(
-                            1, 
+                            1,
                             name,
                             target_deck_name=deck_name,
                         )
@@ -94,5 +102,3 @@ class Remixer():
         name = name_match.group(1)
         name = name.split("(")[0].strip()
         return count, name
-
-
