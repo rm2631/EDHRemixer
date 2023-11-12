@@ -1,0 +1,71 @@
+1 Xenagos, God of Revels (BNG) 156
+1 Ancient Bronze Dragon (CLB) 214
+1 Ancient Copper Dragon (CLB) 161
+1 Anger (AFC) 113
+1 Arbor Elf (A25) 160
+1 Arcane Signet (DMC) 177
+1 Atarka, World Render (FRF) 149
+1 Beast Within (DMC) 129
+1 Berserkers' Onslaught (DTK) 130
+1 Birds of Paradise (CN2) 176
+1 Chaos Warp (2X2) 105
+1 Colossal Majesty (AFC) 154
+1 Command Tower (DMC) 204
+1 Commander's Sphere (DMC) 181
+1 Court of Bounty (CMR) 220
+1 Cultivate (DMC) 130
+1 Domri, Anarch of Bolas (WAR) 191
+1 Dragonborn Champion (AFC) 45
+1 Etali, Primal Storm (CLB) 793
+1 Evolving Wilds (BRO) 261
+1 Exotic Orchard (DMC) 209
+1 Farseek (DMC) 133
+19 Forest (ELD) 266
+1 Fyndhorn Elves (CMR) 228
+1 Garruk's Uprising (NCC) 292
+1 Ghalta, Primal Hunger (JMP) 399
+1 Goblin Anarchomancer (MH2) 200
+1 Goreclaw, Terror of Qal Sisma (M19) 186
+1 Gruul Signet (AFC) 207
+1 Gruul Turf (2X2) 325
+1 Gwenna, Eyes of Gaea (BRO) 185
+1 Hunter's Insight (NEC) 119
+1 Hydra Omnivore (C18) 153
+1 Ilharg, the Raze-Boar (WAR) 133
+1 Karlach, Fury of Avernus (CLB) 400
+1 Klauth, Unrivaled Ancient (AFC) 50 *F*
+1 Klauth's Will (AFC) 51
+1 Kodama's Reach (DMC) 134
+1 Llanowar Elves (GNT) 46
+1 Malignus (AVR) 148
+1 Mana Vault (2X2) 308
+1 Mind Stone (CLB) 325
+1 Minsc & Boo, Timeless Heroes (CLB) 285
+1 Monster Manual // Zoological Study (CLB) 242
+1 Moraug, Fury of Akoum (ZNR) 150
+11 Mountain (ELD) 262
+1 Myriad Landscape (CLB) 904
+1 Nature's Lore (CLB) 244
+1 Old Gnawbone (AFR) 197
+1 Primeval Herald (J22) 42
+1 Quartzwood Crasher (IKO) 201
+1 Rampant Growth (2X2) 155
+1 Reflecting Pool (CLB) 358
+1 Regrowth (MH1) 175
+1 Return of the Wildspeaker (CLB) 831
+1 Rhythm of the Wild (NEC) 142
+1 Rishkar's Expertise (NCC) 306
+1 Ruric Thar, the Unbowed (2X2) 271
+1 Sakura-Tribe Elder (C19) 177
+1 Savage Ventmaw (AFC) 191
+1 Scourge of the Throne (CNS) 35
+1 Shivan Devastator (DMU) 143
+1 Sol Ring (DMC) 190
+1 Somberwald Sage (MIC) 144
+1 Spire Garden (CLB) 361
+1 Taurean Mauler (NEC) 111
+1 Terror of Mount Velus (AFC) 145
+1 The Tarrasque (AFR) 207
+1 Traverse the Outlands (CLB) 258
+1 Unleash Fury (M21) 170
+1 Worldly Tutor (CC1) 6
