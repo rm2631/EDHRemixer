@@ -1,3 +1,11 @@
-.venv
-dist
-build
+# Ignore all files and directories
+*
+
+# Allow app.py
+!app.py
+
+# Allow gitignore
+!.gitignore
+
+# Allow the utils folder and its contents
+!utils/
