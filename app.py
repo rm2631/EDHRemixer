@@ -18,7 +18,6 @@ def main():
     remixer.add_deck("source", True)
     remixer.add_deck("target", False)
     remixer.reallocate()
-    input()
 
 
 if __name__ == "__main__":
