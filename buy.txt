@@ -188,6 +188,7 @@
 1 Giant Inheritance
 1 Gingerbrute
 1 Gisela, Blade of Goldnight
+1 Gisela, Blade of Goldnight
 1 Gishath, Sun's Avatar
 1 Gix, Yawgmoth Praetor
 1 Glacial Fortress
@@ -226,7 +227,6 @@
 1 Huatli, Warrior Poet
 1 Hurloon Battle Hymn
 1 Idol of Oblivion
-1 Imodane's Recruiter
 1 Imodane, the Pyrohammer
 1 Inferno Titan
 1 Ingenious Infiltrator
@@ -359,7 +359,6 @@
 1 Nezahal, Primal Tide
 1 Ninja of the Deep Hours
 1 Nomad Outpost
-1 Olórin's Searing Light
 1 Ominous Seas
 1 Orthion, Hero of Lavabrink
 1 Otepec Huntmaster
@@ -539,6 +538,7 @@
 1 The Sound of Drums
 1 Thornwood Falls
 1 Thousand-Faced Shadow
+1 Thran Power Suit
 1 Thrashing Brontodon
 1 Three Visits
 1 Thrilling Discovery

@@ -30,7 +30,7 @@
 1 Godless Shrine
 1 Guardian of Faith
 1 Halvar, God of Battle
-1 Imodane's Recruiter
+1 Thran Power Suit
 1 Inspiring Veteran
 1 Isolated Chapel
 1 Kaldra Compleat
