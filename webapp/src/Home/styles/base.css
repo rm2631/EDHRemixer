@@ -1,0 +1,51 @@
+.home-container {
+    padding: 25px;
+    gap: 10px;
+    display: flex;
+    flex-direction: row;  
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.home-column-container {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.deck-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.deck-editor-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 100px;
+    width: 100%;
+    height: 100vh;
+    max-height: 720px;
+    max-width: 1024px;
+}
+
+.card-input-container {
+    width: 100%;
+    height: 100%;
+}
+
+.card-input {
+    resize: none;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+}
+
+.save-container{
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
