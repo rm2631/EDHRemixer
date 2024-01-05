@@ -6,7 +6,7 @@ function NewDeck ({source, createDeck}) {
     }
     return (
         <button onClick={handleClick}>
-            Create +
+            + Create
         </button>
     )
 }

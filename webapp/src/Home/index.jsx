@@ -22,7 +22,7 @@ function Home() {
         <>
             <DeckList source={true} />
             <DeckList source={false} />
-            <OutputColumn />
+            <OutputColumn sourceDecks={sourceDecks} targetDecks={targetDecks}/>
         </>
     )
 

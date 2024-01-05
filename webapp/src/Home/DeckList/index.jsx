@@ -17,7 +17,7 @@ function DeckList({ source }) {
 
     const header = source ? 'Source deck' : 'Target deck';
     const deck = source ? sourceDecks : targetDecks; 
-    
+
     return (
         <div className='home-column-container'>
             <h2>{header}</h2>

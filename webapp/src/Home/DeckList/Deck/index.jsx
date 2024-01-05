@@ -5,7 +5,7 @@ function Deck({deck, setSelectedDeckId}) {
     }
 
     return (
-        <button onClick={handleClick}>
+        <button className='deck-select-btn' onClick={handleClick}>
             {deck.deck_name}
         </button>
     )
