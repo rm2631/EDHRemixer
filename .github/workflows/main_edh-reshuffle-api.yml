@@ -1,4 +1,4 @@
-name: Build and deploy Python app to Azure Web App - edh-reshuffle-api
+name: Deploy API
 
 on:
   push:
