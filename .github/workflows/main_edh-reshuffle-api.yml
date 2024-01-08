@@ -16,6 +16,9 @@ jobs:
       - name: Change to API directory
         run: cd api
 
+      - name: Show repo
+        run : dir
+
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
