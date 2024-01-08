@@ -13,12 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Change to API directory
-        run: cd api
-
-      - name: Show repo
-        run : dir
-
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
@@ -28,9 +22,11 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+        working-directory: api
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+        working-directory: api
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Zip artifact for deployment
