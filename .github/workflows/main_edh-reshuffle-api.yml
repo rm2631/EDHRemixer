@@ -44,8 +44,7 @@ jobs:
         with:
           name: python-app
           path: |
-            release.zip
-            !venv/
+            api/release.zip
 
   deploy:
     runs-on: ubuntu-latest
