@@ -16,7 +16,7 @@ export const DeckProvider = ({ children }) => {
         const deck = {
             deck_id: deck_id,
             source: source,
-            deck: 'New deck',
+            deck: deck_id,
             cards: [],
         };
         if (source) {
