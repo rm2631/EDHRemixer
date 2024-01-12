@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <DeckProvider>
-        <Home />  
+        <div className='container'>
+          <Home />  
+        </div>
       </DeckProvider>
     </>
   )
