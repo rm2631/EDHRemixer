@@ -1,9 +1,13 @@
 import axiosConfig from '@/axiosConfig';
+import React from 'react'
+import {Button} from 'react-bootstrap'
 
 function OutputColumn({sourceDecks, targetDecks}) {
-    const disabled = sourceDecks.length === 0 || targetDecks.length === 0;
 
-    // Flatten all decks into a list of cards and add the deck name to each card
+    //TODO: Add a loading state
+
+
+    const disabled = sourceDecks.length === 0 || targetDecks.length === 0;
     const sourceFormatted = sourceDecks.map(deck => {
         return deck.cards.map(card => {
             return {
@@ -28,15 +32,22 @@ function OutputColumn({sourceDecks, targetDecks}) {
     }
 
     const handleClick = () => {
-        axiosConfig.post('/reshuffle', body)
-    }
+        //An excel file is downloaded with the reshuffled decks
+        axiosConfig.post('/reshuffle', body).then(response => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'reshuffled.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+    })}
+
 
     return (
         <div className="home-column-container">
             <h2>Output</h2>
-            <button disabled={disabled} onClick={handleClick}>
-                Reshuffle
-            </button>
+            <Button disabled={disabled} onClick={handleClick}>Reshuffle</Button>
         </div>
     )
 }
