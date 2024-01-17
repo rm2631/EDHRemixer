@@ -1,11 +1,10 @@
 import axiosConfig from '@/axiosConfig';
-import React from 'react'
+import React, {useState} from 'react'
 import {Button} from 'react-bootstrap'
 import {Card} from 'react-bootstrap'
 
 function OutputColumn({sourceDecks, targetDecks}) {
-
-    //TODO: Add a loading state
+    const [loading, setLoading] = useState(false);
     const emptyDeckList = sourceDecks.length === 0 || targetDecks.length === 0;
     const emptyDeck = sourceDecks.concat(targetDecks).some(deck => deck.cards.length === 0);
 
@@ -36,6 +35,7 @@ function OutputColumn({sourceDecks, targetDecks}) {
     }
 
     const handleClick = () => {
+        setLoading(true);
         //An excel file is downloaded with the reshuffled decks
         axiosConfig.post('/reshuffle', body).then(response => {
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -46,13 +46,19 @@ function OutputColumn({sourceDecks, targetDecks}) {
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);
-    })}
+    }).finally(() => {
+            setLoading(false);
+        })
+    }
 
 
     return (
         <div className="home-column-container">
             <h2>Output</h2>
-            <Button disabled={disabled} onClick={handleClick}>Reshuffle</Button>
+            <Button disabled={disabled} onClick={handleClick}>
+                Reshuffle
+                {loading && <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>}
+            </Button>
             <Card className="mt-2 home-column-card">
                 <Card.Title>Instructions</Card.Title>
                 <Card.Body>
