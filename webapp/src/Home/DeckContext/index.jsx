@@ -12,7 +12,8 @@ export const DeckProvider = ({ children }) => {
 
     const createDeck = (source) => {
         //create a random hash from date and time for the deck_id
-        const deck_id = Date.now().toString(36) + Math.random().toString(36).substr(2);
+        const date = new Date();
+        const deck_id = date.toISOString();
         const deck = {
             deck_id: deck_id,
             source: source,

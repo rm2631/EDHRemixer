@@ -1,13 +1,11 @@
-
+import { Button } from "react-bootstrap";
 
 function NewDeck ({source, createDeck}) {
     const handleClick = () => {
         createDeck(source);
     }
     return (
-        <button onClick={handleClick}>
-            + Create
-        </button>
+        <Button onClick={handleClick}>Add Deck</Button>
     )
 }
 

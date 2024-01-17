@@ -18,7 +18,6 @@
 .deck-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 .deck-editor-container {
@@ -52,14 +51,56 @@
     align-items: flex-end;
 }
 
+.deck-select-container {
+    position: relative;
+    display: flex; /* or 'block' depending on your layout needs */
+    align-items: center;
+    justify-content: center;
+}
+
 .deck-select-btn {
-    background-color: transparent;
-    /* border-top: 1px solid lightgray !important; */
-    color: initial;
-    border: none;
-    text-align: left;
+    width: 100%;
+    background-color: transparent !important;
+    border-bottom: 1px solid lightgray !important;
+    color: var(--font-color) !important;
+    text-align: left !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px !important;
 }
 
 .deck-select-btn:hover {
-    background-color: lightgray;
+    background-color: lightgray !important;
+}
+
+.deck-select-btn-text {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.kebab-container {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    margin-right: 5px;
+    z-index: 500;
+}
+
+.kebab-btn {
+    background-color: transparent !important;
+    border: none !important;
+    color: var(--font-color) !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    z-index: 500;
+}
+
+.delete-deck-btn {
+    color: darkred;
 }

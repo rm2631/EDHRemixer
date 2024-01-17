@@ -2,6 +2,7 @@
 :root {
   /* Variables */
   --app-width: 1800px;
+  --font-color: #36454F;
 
   /* Colors */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -9,7 +10,7 @@
   font-weight: 400;
 
   color-scheme: normal;
-  color: #36454F;
+  color: var(--font-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

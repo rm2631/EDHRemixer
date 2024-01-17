@@ -5,9 +5,12 @@ import {Button} from 'react-bootstrap'
 function OutputColumn({sourceDecks, targetDecks}) {
 
     //TODO: Add a loading state
+    const emptyDeckList = sourceDecks.length === 0 || targetDecks.length === 0;
+    const emptyDeck = sourceDecks.concat(targetDecks).some(deck => deck.cards.length === 0);
+
+    const disabled = emptyDeckList || emptyDeck;
 
 
-    const disabled = sourceDecks.length === 0 || targetDecks.length === 0;
     const sourceFormatted = sourceDecks.map(deck => {
         return deck.cards.map(card => {
             return {
@@ -37,7 +40,8 @@ function OutputColumn({sourceDecks, targetDecks}) {
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', 'reshuffled.xlsx');
+            const date = new Date();
+            link.setAttribute('download', `reshuffled_${date.toISOString()}.xlsx`);
             document.body.appendChild(link);
             link.click();
             link.parentNode.removeChild(link);

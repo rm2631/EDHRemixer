@@ -10,6 +10,7 @@ function DeckEditor({selectedDeck, updateDeck, deleteDeck, setSelectedDeckId}) {
   }
       
   const stringToObject = (string) => {
+      if (!string) return null;
       const quantity = string.match(/^\d+x? /)
       const card_name = string.replace(/^\d+x? /, '')
       if (!card_name) return null;
@@ -21,7 +22,9 @@ function DeckEditor({selectedDeck, updateDeck, deleteDeck, setSelectedDeckId}) {
 
 
   const updateCardList = () => {
-      const newCardList = deckString.split('\n').map(card_name => (stringToObject(card_name)))
+      const newCardList = deckString
+      .split('\n').map(card_name => (stringToObject(card_name)))
+      .filter(card => card);
       const newDeck = {...selectedDeck, cards: newCardList}
       updateDeck(selectedDeck.source, newDeck)
   }
