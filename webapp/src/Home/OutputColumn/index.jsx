@@ -1,6 +1,7 @@
 import axiosConfig from '@/axiosConfig';
 import React from 'react'
 import {Button} from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 
 function OutputColumn({sourceDecks, targetDecks}) {
 
@@ -52,6 +53,18 @@ function OutputColumn({sourceDecks, targetDecks}) {
         <div className="home-column-container">
             <h2>Output</h2>
             <Button disabled={disabled} onClick={handleClick}>Reshuffle</Button>
+            <Card className="mt-2 home-column-card">
+                <Card.Body>
+                    <Card.Title>Instructions</Card.Title>
+                    <Card.Text>
+                        <ol>
+                            <li>Add a deck to the source column, add cards in it.</li>
+                            <li>Add a deck to the target column, add cards in it.</li>
+                            <li>Click the reshuffle button to download the resulting excel file.</li>
+                        </ol>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
         </div>
     )
 }
