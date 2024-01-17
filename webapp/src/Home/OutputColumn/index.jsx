@@ -54,8 +54,8 @@ function OutputColumn({sourceDecks, targetDecks}) {
             <h2>Output</h2>
             <Button disabled={disabled} onClick={handleClick}>Reshuffle</Button>
             <Card className="mt-2 home-column-card">
+                <Card.Title>Instructions</Card.Title>
                 <Card.Body>
-                    <Card.Title>Instructions</Card.Title>
                     <Card.Text>
                         <ol>
                             <li>Add a deck to the source column, add cards in it.</li>
