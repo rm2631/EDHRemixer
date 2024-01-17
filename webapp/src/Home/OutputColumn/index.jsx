@@ -55,7 +55,7 @@ function OutputColumn({sourceDecks, targetDecks}) {
     return (
         <div className="home-column-container">
             <h2>Output</h2>
-            <Button disabled={disabled} onClick={handleClick}>
+            <Button disabled={disabled || loading} onClick={handleClick}>
                 Reshuffle
                 {loading && <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>}
             </Button>
