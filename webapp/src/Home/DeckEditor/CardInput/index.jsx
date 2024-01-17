@@ -6,11 +6,14 @@ function CardInput({deckString, setDeckString}) {
         setDeckString(e.target.value)
     }
 
+    const placeholder = "1 Card Name"
+
     return (
         <div className='card-input-container'>
             <textarea className='card-input' 
                 value={deckString}
                 onChange={handleClick}
+                placeholder={placeholder}
             />
         </div>
     );

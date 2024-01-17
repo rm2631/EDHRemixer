@@ -3,8 +3,9 @@ import { Badge } from 'react-bootstrap'
 import Kebab from "./Kebab";
 
 function Deck({deck, setSelectedDeckId}) {
-
-    const deck_length = deck.cards.length;
+    const deck_length = deck.cards.reduce((acc, card) => {
+        return acc + card.quantity;
+    }, 0);
 
     const handleClick = () => {
         setSelectedDeckId(deck.deck_id);
