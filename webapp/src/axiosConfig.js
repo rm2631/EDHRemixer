@@ -4,6 +4,7 @@ import axios from 'axios';
 // Create an instance of axios with default properties
 const axiosInstance = axios.create({
     baseURL: 'https://edh-reshuffle-api.azurewebsites.net/', // Set your API base URL here
+    // baseURL: 'http://127.0.0.1:8000/', // Set your API base URL here
 });
 
 // Request interceptor

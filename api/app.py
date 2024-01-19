@@ -1,11 +1,27 @@
 # Import necessary libraries
 from fastapi import FastAPI, Response
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from models import DeckListModel
 from utils.Remixer import Remixer
 
 # Create an instance of the FastAPI class
 app = FastAPI()
+## Set CORS
+# origins = [
+#     "http://localhost.tiangolo.com",
+#     "https://localhost.tiangolo.com",
+#     "http://localhost",
+#     "http://localhost:8080",
+#     "http://127.0.0.1:5173/",
+# ]
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 # Define a POST endpoint with a path parameter and request body
