@@ -12,9 +12,19 @@ function DeckEditor({selectedDeck, updateDeck, deleteDeck, setSelectedDeckId}) {
   const stringToObject = (string) => {
       if (!string) return null;
       const quantity = string.match(/^\d+x? /)
-      const card_name = string.replace(/^\d+x? /, '')
+      let card_name = string.replace(/^\d+x? /, '')
+      const END_CHARACTERS_LIST = ['(', ')', '!', '?']
+      // Strip all after end characters
+      END_CHARACTERS_LIST.forEach(character => {
+          const index = card_name.indexOf(character);
+          if (index !== -1) card_name = card_name.slice(0, index);
+      })
+      card_name = card_name.trim();
       if (!card_name) return null;
-      return {quantity: quantity ? +quantity[0].replace(/x? /, '') : 1, card_name: card_name}
+      return {
+        quantity: quantity ? +quantity[0].replace(/x? /, '') : 1, 
+        card_name: card_name
+      }
   }
 
   const cardList = selectedDeck.cards  || [];// array of card objects
