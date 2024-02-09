@@ -1,5 +1,5 @@
 # from utils.Card import Card
-from Card import Card
+from utils.Card import Card
 from itertools import groupby
 import pandas as pd
 from io import BytesIO
