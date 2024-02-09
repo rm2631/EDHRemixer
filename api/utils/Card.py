@@ -1,3 +1,6 @@
+BASIC_LANDS = ["Plains", "Island", "Swamp", "Mountain", "Forest"]
+
+
 class Card:
     def __init__(
         self,
@@ -11,6 +14,7 @@ class Card:
         self.card_name = card_name
         self.source_deck_name = source_deck_name
         self.target_deck_name = target_deck_name
+        self.basic_land = card_name in BASIC_LANDS
 
         if source_deck_name:
             self.held = True
