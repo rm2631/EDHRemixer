@@ -8,10 +8,11 @@ class Card:
         card_name: str,
         source_deck_name: str = None,
         target_deck_name: str = None,
-        **kwargs
+        **kwargs,
     ):
         self.count = quantity
         self.card_name = card_name
+        self.quantity_card_name = f"{quantity} {card_name}"
         self.source_deck_name = source_deck_name
         self.target_deck_name = target_deck_name
         self.basic_land = card_name in BASIC_LANDS
@@ -25,7 +26,9 @@ class Card:
         return {
             "count": self.count,
             "card_name": self.card_name,
+            "quantity_card_name": self.quantity_card_name,
             "source_deck_name": self.source_deck_name,
             "target_deck_name": self.target_deck_name,
             "held": self.held,
+            "basic_land": self.basic_land,
         }
