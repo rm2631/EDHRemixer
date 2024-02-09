@@ -6,8 +6,8 @@ class Card:
         self,
         quantity: int,
         card_name: str,
-        source_deck_name: str = None,
-        target_deck_name: str = None,
+        source_deck_name: str = "",
+        target_deck_name: str = "",
         **kwargs,
     ):
         self.count = quantity
@@ -16,12 +16,12 @@ class Card:
         self.source_deck_name = source_deck_name
         self.target_deck_name = target_deck_name
         self.basic_land = card_name in BASIC_LANDS
-        if self.source_deck_name is not None and self.target_deck_name is not None:
+        if self.source_deck_name != "" and self.target_deck_name != "":
             self.reshuffled = True
         else:
             self.reshuffled = False
 
-        if source_deck_name:
+        if source_deck_name != "":
             self.held = True
         else:
             self.held = False
