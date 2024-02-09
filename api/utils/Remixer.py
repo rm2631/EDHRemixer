@@ -1,6 +1,5 @@
-import re
-import os
-from utils.Card import Card
+# from utils.Card import Card
+from Card import Card
 from itertools import groupby
 import pandas as pd
 from io import BytesIO
@@ -12,14 +11,17 @@ class Remixer:
 
     def add_deck(self, cards, source_deck: bool):
         ## If directory is empty, raise Exception
-        for new_card in cards:
-            new_card = new_card.__dict__
+        for card in cards:
+            card = card.__dict__
             if source_deck:
-                new_card["source_deck_name"] = new_card["deck"]
+                card["source_deck_name"] = card["deck"]
             else:
-                new_card["target_deck_name"] = new_card["deck"]
-            new_card = Card(**new_card)
-            self.cards.append(new_card)
+                card["target_deck_name"] = card["deck"]
+            ## Create a card object for each card in the deck
+            for _ in range(1, card["quantity"] + 1):
+                new_card = card.copy()
+                new_card["quantity"] = 1
+                self.cards.append(Card(**new_card))
 
     def reallocate(self):
         reallocate_list = []
