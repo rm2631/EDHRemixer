@@ -27,10 +27,11 @@ class Remixer:
         reallocate_list = []
         buy_list = []
         ditch_list = []
-
         self.cards = sorted(self.cards, key=lambda x: x.card_name)
-        for card, group in groupby(self.cards, lambda x: x.card_name):
+        for c, group in groupby(self.cards, lambda x: x.card_name):
             group_cards = list(group)
+            group_cards = sorted(group_cards, key=lambda x: x.source_deck_name)
+            group_cards = sorted(group_cards, key=lambda x: x.target_deck_name)
             held_cards = [card for card in group_cards if card.held]
             needed_cards = [card for card in group_cards if not card.held]
             for needed_card in needed_cards:
