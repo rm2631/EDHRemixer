@@ -5,3 +5,4 @@ pydantic==2.5.3
 pydantic-core==2.14.6
 XlsxWriter==3.1.9
 uvicorn==0.25.0
+requests==2.31.0
