@@ -1,6 +1,6 @@
 # Import necessary libraries
 from utils.Remixer import Remixer
-from models import DeckListModel, CardModel
+from models import DeckReshuffleModel, CardModel
 
 payload = {
     "source": [
@@ -7785,7 +7785,7 @@ payload = {
 }
 
 
-deck = DeckListModel(
+deck = DeckReshuffleModel(
     source=[
         CardModel(
             deck=card.get("deck"),
