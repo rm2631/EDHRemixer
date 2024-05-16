@@ -128,9 +128,9 @@ class ShuffleManager:
         df = pd.DataFrame(
             [
                 {
-                    "Name": card.name,
-                    "Source": card.source.name,
-                    "Target": card.target.name,
+                    **card.model_dump(),
+                    "source": card.source.name if card.source is not None else None,
+                    "target": card.target.name if card.target is not None else None,
                 }
                 for card in cards
             ]
