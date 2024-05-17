@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 from typing import List, Union
 
 
@@ -38,8 +38,9 @@ class Card(BaseModel):
     color_identity: List[str]
     price_usd: float
 
+    @computed_field
     @property
-    def basic_land(self):
+    def basic_land(self) -> bool:
         basic_land_names = [
             "plains",
             "island",
@@ -48,3 +49,18 @@ class Card(BaseModel):
             "forest",
         ]
         return self.name.lower() in basic_land_names
+
+    @computed_field
+    @property
+    def reshuffled(self) -> bool:
+        return self.source is not None and self.target is not None
+
+    @computed_field
+    @property
+    def ditched(self) -> bool:
+        return self.source is not None and self.target is None
+
+    @computed_field
+    @property
+    def buylist(self) -> bool:
+        return self.source is None and self.target is not None
