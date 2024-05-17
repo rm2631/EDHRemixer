@@ -19,31 +19,26 @@ class ShuffleManager:
         cards = []
         for input in inputs:
             if input.is_deck:
-                cards = moxfield_connector.get_deck_content(input.id)
-                for card in cards:
-                    for _ in range(card["quantity"]):
-                        cards.append(
-                            Card(
-                                id=card["card"]["uniqueCardId"],
-                                name=card["card"]["name"],
-                                source=input if input.is_source else None,
-                                target=input if not input.is_source else None,
-                            )
-                        )
+                deck_cards = moxfield_connector.get_deck_content(input.id)
             else:
-                cards = moxfield_connector.get_binder_content(input.id)
-                for card in cards:
-                    for _ in range(card["quantity"]):
-                        cards.append(
-                            Card(
-                                id=card["card"]["uniqueCardId"],
-                                name=card["card"]["name"],
-                                source=input if input.is_source else None,
-                                target=input if not input.is_source else None,
-                            )
+                deck_cards = moxfield_connector.get_binder_content(input.id)
+            for card in deck_cards:
+                for _ in range(card["quantity"]):
+                    cards.append(
+                        Card(
+                            source=input if input.is_source else None,
+                            target=input if not input.is_source else None,
+                            price_usd=card["card"].get("prices").get("usd", 0),
+                            **card["card"],
                         )
-        self.available_cards = [card for card in cards if card.source is not None]
-        self.required_cards = [card for card in cards if card.source is None]
+                    )
+
+        self.initially_available_cards = [
+            card for card in cards if card.source is not None
+        ]
+        self.initially_required_cards = [card for card in cards if card.source is None]
+        self.available_cards = self.initially_available_cards.copy()
+        self.required_cards = self.initially_required_cards.copy()
         self.allocated_cards = []
 
     def _find_intersection(self, deck_1: List[Card], deck_2: List[Card]) -> List[str]:
@@ -53,8 +48,8 @@ class ShuffleManager:
         :param deck2: list of cards
         :return: int - number of similar cards
         """
-        deck1_cards = Counter([c.id for c in deck_1])
-        deck2_cards = Counter([c.id for c in deck_2])
+        deck1_cards = Counter([c.uniqueCardId for c in deck_1])
+        deck2_cards = Counter([c.uniqueCardId for c in deck_2])
         intersection = (deck1_cards & deck2_cards).elements()
         result = list(intersection)
         return result
@@ -97,6 +92,14 @@ class ShuffleManager:
             intersection_cards=optimal[1][1],
         )
 
+    def _validate_shuffling(self):
+        assert len(self.initially_available_cards) == (
+            len(self.available_cards) + len(self.allocated_cards)
+        )
+        assert len(self.initially_required_cards) == (
+            len(self.required_cards) + len(self.allocated_cards)
+        )
+
     def reshuffle(self):
         while True:
             best_source = self._find_optimal_movement(
@@ -108,18 +111,20 @@ class ShuffleManager:
                 available_card = next(
                     card
                     for card in self.available_cards
-                    if card.id == card_id and card.source == best_source.source
+                    if card.uniqueCardId == card_id
+                    and card.source == best_source.source
                 )
                 self.available_cards.remove(available_card)
                 required_card = next(
                     card
                     for card in self.required_cards
-                    if card.id == card_id and card.target == best_source.target
+                    if card.uniqueCardId == card_id
+                    and card.target == best_source.target
                 )
                 self.required_cards.remove(required_card)
                 available_card.target = best_source.target
                 self.allocated_cards.append(available_card)
-
+        self._validate_shuffling()
         return self._build_excel_file()
 
     def _build_excel_file(self) -> ByteString:
@@ -136,7 +141,7 @@ class ShuffleManager:
             ]
         )
         with BytesIO() as buffer:
-            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+            with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:  # type: ignore
                 df.to_excel(writer, sheet_name="Sheet1")
                 writer.close()  # This will save the content to the buffer
             return buffer.getvalue()  # Returns the Excel file in memory

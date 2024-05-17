@@ -30,10 +30,13 @@ class Movement(BaseModel):
 
 
 class Card(BaseModel):
-    id: str
+    uniqueCardId: str
     name: str
     source: Union[Collection, None]
     target: Union[Collection, None]
+    type_line: str
+    color_identity: List[str]
+    price_usd: float
 
     @property
     def basic_land(self):

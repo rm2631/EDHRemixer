@@ -15,12 +15,7 @@ def test_shuffle_manager():
     )
 
     shuffle_manager = ShuffleManager(inputs=[source_1, source_2])
-    available_cards = shuffle_manager.available_cards
     file = shuffle_manager.reshuffle()
-    # test
-    assert len(available_cards) == (
-        shuffle_manager.available_cards + shuffle_manager.allocated_cards
-    )
 
 
 if __name__ == "__main__":

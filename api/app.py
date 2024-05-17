@@ -2,6 +2,7 @@
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from models import Collection
+from services.shuffle_manager import ShuffleManager
 import uvicorn
 
 app = FastAPI()
