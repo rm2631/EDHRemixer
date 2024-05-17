@@ -1,6 +1,6 @@
 import Home from './Home'
 import './App.css'
-import DeckProvider from './Home/DeckContext'
+import CollectionProvider from './Home/CollectionContext'
 import NavigationBar from './NavigationBar'
 
 
@@ -8,12 +8,12 @@ function App() {
 
   return (
     <>
-      <DeckProvider>
+      <CollectionProvider>
         <NavigationBar />
         <div className='container'>
           <Home />  
         </div>
-      </DeckProvider>
+      </CollectionProvider>
     </>
   )
 }
