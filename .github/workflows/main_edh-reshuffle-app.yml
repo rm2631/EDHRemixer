@@ -1,13 +1,12 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Deploy Webapp
+name: Build and deploy Node.js app to Azure Web App - edh-reshuffle-app
+
 on:
   push:
     branches:
       - main
-    paths:
-      - 'webapp/**'
   workflow_dispatch:
 
 jobs:
@@ -27,17 +26,15 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-        working-directory: webapp
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
-        working-directory: webapp
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: webapp/release.zip
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -45,21 +42,30 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: node-app
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6974B7236CCA44EB81A703D670A275BE }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D693023C2AFA42B08B3B8F4B7180BDD3 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2B4CEE1828C1443EB0F22829825261A0 }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: 'edh-reshuffle-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6BD78E153FDE4BE0B2CD38CB3958ADBD }}
           package: .
+          
