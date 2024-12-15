@@ -1,4 +1,5 @@
-import requests
+import cloudscraper
+from time import sleep
 
 
 class MoxfieldConnector:
@@ -6,7 +7,11 @@ class MoxfieldConnector:
     @staticmethod
     def _build_headers() -> dict:
         return {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+            "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
         }
 
     @staticmethod
@@ -16,13 +21,19 @@ class MoxfieldConnector:
     @staticmethod
     def get_deck_content(id: str) -> list[dict]:
         base_url = "https://api2.moxfield.com/v3/decks/all/"
-        response = requests.get(
-            url=base_url + id,
-            headers=MoxfieldConnector._build_headers(),
-        )
-        if response.status_code != 200:
-
+        scraper = cloudscraper.create_scraper()
+        retries = 3
+        for _ in range(retries):
+            response = scraper.get(
+                url=base_url + id,
+                headers=MoxfieldConnector._build_headers(),
+            )
+            if response.status_code == 200:
+                break
+            sleep(5)  # Wait for 5 seconds before retrying
+        else:
             raise Exception("Failed to fetch deck content")
+
         mainboard = MoxfieldConnector._unpack_response(
             response.json()["boards"]["mainboard"]["cards"]
         )
@@ -47,9 +58,10 @@ class MoxfieldConnector:
             "sortType": "cardName",
             "sortDirection": "ascending",
         }
+        scraper = cloudscraper.create_scraper()
 
         while True:
-            response = requests.get(
+            response = scraper.get(
                 url=base_url.format(id=id),
                 headers=MoxfieldConnector._build_headers(),
                 params=params,

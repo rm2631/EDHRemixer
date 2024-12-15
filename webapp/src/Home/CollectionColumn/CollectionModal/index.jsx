@@ -36,10 +36,12 @@ const CollectionModal = ({ is_source, collection }) => {
 
   const handleSave = () => {
     if (is_new) {
-      addCollection( name, url, is_source );
+      addCollection(name, url, is_source);
     } else {
       updateCollection(id, name, url, is_source);
     }
+    setName('');
+    setUrl('');
     handleClose();
   }  
 
@@ -90,7 +92,7 @@ const CollectionModal = ({ is_source, collection }) => {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
-              <URLValidator url={url} setValid={ setValid} />
+              <URLValidator url={url} setValid={setValid} />
             </Form.Group>
           </Form>
         </Modal.Body>
