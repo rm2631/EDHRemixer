@@ -12,37 +12,6 @@ def main():
     if "collections" not in st.session_state:
         st.session_state["collections"] = []
     collections = st.session_state["collections"]
-    # Simple import experience: use only the file uploader with a clear label
-    uploaded_file = st.file_uploader(
-        "Click to select a JSON file to import your collections",
-        type=["json"],
-        key="collections_uploader",
-        label_visibility="visible",
-    )
-    if uploaded_file:
-        import json
-
-        try:
-            imported_collections = json.load(uploaded_file)
-            if isinstance(imported_collections, list):
-                st.session_state["collections"] = imported_collections
-                st.success("Collections imported successfully!")
-                st.rerun()
-            else:
-                st.error("Invalid format: JSON must be a list of collections.")
-        except Exception as e:
-            st.error(f"Error importing collections: {e}")
-    import json
-
-    collections_json = json.dumps(st.session_state["collections"], indent=2)
-    st.download_button(
-        label="Export Collections",
-        data=collections_json,
-        file_name="collections.json",
-        mime="application/json",
-        use_container_width=False,
-        key="export_collections_download",
-    )
 
     # Handle form reset flag before rendering widgets
     if st.session_state.get("reset_form", False):
@@ -97,6 +66,38 @@ def main():
                 st.error(f"Error running the engine: {e}")
     with col2:
         st.header("Collections List")
+
+        # Simple import experience: use only the file uploader with a clear label
+        uploaded_file = st.file_uploader(
+            "Click to select a JSON file to import your collections",
+            type=["json"],
+            key="collections_uploader",
+            label_visibility="visible",
+        )
+        if uploaded_file:
+            import json
+
+            try:
+                imported_collections = json.load(uploaded_file)
+                if isinstance(imported_collections, list):
+                    st.session_state["collections"] = imported_collections
+                    st.rerun()
+                else:
+                    st.error("Invalid format: JSON must be a list of collections.")
+            except Exception as e:
+                st.error(f"Error importing collections: {e}")
+        import json
+
+        collections_json = json.dumps(st.session_state["collections"], indent=2)
+        st.download_button(
+            label="Export Collections",
+            data=collections_json,
+            file_name="collections.json",
+            mime="application/json",
+            use_container_width=True,
+            key="export_collections_download",
+        )
+
         # Add header row for grid
         header_cols = st.columns([2, 4, 2, 1])
         header_cols[0].markdown("**Name**")
