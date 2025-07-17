@@ -74,8 +74,12 @@ def main():
     with col2:
         st.header("Collections List")
         for i, collection in enumerate(collections):
-            st.write(f"{i + 1}. Name: {collection['name']}, URL: {collection['url']}, Is Source: {collection['is_source']}")
-            if st.button(f"Delete {collection['name']}", key=f"delete_{i}"):
+            grid_cols = st.columns([2, 4, 2, 1])
+            grid_cols[0].write(collection['name'])
+            grid_cols[1].write(collection['url'])
+            grid_cols[2].write("Source" if collection['is_source'] else "Target")
+            delete_icon = "🗑️"
+            if grid_cols[3].button(delete_icon, key=f"delete_{i}"):
                 collections.pop(i)
                 st.session_state["collections"] = collections
                 st.success(f"Deleted {collection['name']}")
