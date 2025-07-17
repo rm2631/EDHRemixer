@@ -1,4 +1,5 @@
 import streamlit as st
+st.set_page_config(layout="wide")
 import streamlit.components.v1 as components
 
 # JavaScript code for interacting with browser local storage
@@ -73,6 +74,13 @@ def main():
                 st.error(f"Error running the engine: {e}")
     with col2:
         st.header("Collections List")
+        # Add header row for grid
+        header_cols = st.columns([2, 4, 2, 1])
+        header_cols[0].markdown("**Name**")
+        header_cols[1].markdown("**URL**")
+        header_cols[2].markdown("**Type**")
+        header_cols[3].markdown("**Delete**")
+        # Display each collection in a horizontally aligned row
         for i, collection in enumerate(collections):
             grid_cols = st.columns([2, 4, 2, 1])
             grid_cols[0].write(collection['name'])
