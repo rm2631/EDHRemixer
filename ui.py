@@ -1,4 +1,5 @@
 import streamlit as st
+
 st.set_page_config(layout="wide")
 import streamlit.components.v1 as components
 
@@ -22,6 +23,7 @@ function deleteFromLocalStorage(key) {
 
 # Inject JavaScript into the Streamlit app
 components.html(local_storage_js, height=0)
+
 
 # Streamlit UI
 def main():
@@ -47,12 +49,20 @@ def main():
         st.header("Add New Collection")
         name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
         url = st.text_input("URL", value=st.session_state.get("url", ""), key="url")
-        is_source = st.checkbox("Is a Source?", value=st.session_state.get("is_source", False), key="is_source")
+        is_source = st.checkbox(
+            "Is a Source?",
+            value=st.session_state.get("is_source", False),
+            key="is_source",
+        )
         btn_col1, btn_col2 = st.columns([1, 1])
         add_clicked = btn_col1.button("Add Collection")
         run_clicked = btn_col2.button("Run Engine")
         if add_clicked:
-            new_collection = {"name": st.session_state["name"], "url": st.session_state["url"], "is_source": st.session_state["is_source"]}
+            new_collection = {
+                "name": st.session_state["name"],
+                "url": st.session_state["url"],
+                "is_source": st.session_state["is_source"],
+            }
             collections.append(new_collection)
             st.session_state["collections"] = collections
             st.session_state["reset_form"] = True
@@ -61,14 +71,14 @@ def main():
         if run_clicked:
             try:
                 from main import run
+
                 output_file = run(collections)
-                with open(output_file, "rb") as file:
-                    st.download_button(
-                        label="Download Excel File",
-                        data=file,
-                        file_name=output_file,
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                    )
+                st.download_button(
+                    label="Download Excel File",
+                    data=output_file,
+                    file_name="reshuffled.xlsx",  # You can set a static or dynamic filename
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                )
                 st.success("Engine ran successfully! You can download the file above.")
             except Exception as e:
                 st.error(f"Error running the engine: {e}")
@@ -83,15 +93,16 @@ def main():
         # Display each collection in a horizontally aligned row
         for i, collection in enumerate(collections):
             grid_cols = st.columns([2, 4, 2, 1])
-            grid_cols[0].write(collection['name'])
-            grid_cols[1].write(collection['url'])
-            grid_cols[2].write("Source" if collection['is_source'] else "Target")
+            grid_cols[0].write(collection["name"])
+            grid_cols[1].write(collection["url"])
+            grid_cols[2].write("Source" if collection["is_source"] else "Target")
             delete_icon = "🗑️"
             if grid_cols[3].button(delete_icon, key=f"delete_{i}"):
                 collections.pop(i)
                 st.session_state["collections"] = collections
                 st.success(f"Deleted {collection['name']}")
                 st.rerun()
+
 
 if __name__ == "__main__":
     main()
