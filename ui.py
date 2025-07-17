@@ -26,12 +26,16 @@ components.html(local_storage_js, height=0)
 def main():
     st.title("Collection Manager")
 
+    # Initialize collections in session state
+    if "collections" not in st.session_state:
+        st.session_state["collections"] = []
+    collections = st.session_state["collections"]
+
     # Add a button to run the engine
     if st.button("Run Engine"):
         try:
             from main import run
             output_file = run(collections)
-
             with open(output_file, "rb") as file:
                 st.download_button(
                     label="Download Excel File",
@@ -42,9 +46,6 @@ def main():
             st.success("Engine ran successfully! You can download the file above.")
         except Exception as e:
             st.error(f"Error running the engine: {e}")
-
-    # Load existing collections from browser local storage
-    collections = st.experimental_get_query_params().get("collections", [])
 
     # Display collections
     st.subheader("Current Collections")
@@ -60,17 +61,18 @@ def main():
     if st.button("Add Collection"):
         new_collection = {"name": name, "url": url, "is_source": is_source}
         collections.append(new_collection)
-        st.experimental_set_query_params(collections=collections)
+        st.session_state["collections"] = collections
         st.success("Collection added successfully!")
 
     # Edit or delete collections
     st.subheader("Manage Collections")
     for i, collection in enumerate(collections):
         st.write(f"{i + 1}. {collection['name']} ({collection['url']})")
-        if st.button(f"Delete {collection['name']}"):
+        if st.button(f"Delete {collection['name']}", key=f"delete_{i}"):
             collections.pop(i)
-            st.experimental_set_query_params(collections=collections)
+            st.session_state["collections"] = collections
             st.success(f"Deleted {collection['name']}")
+            st.rerun()
 
 if __name__ == "__main__":
     main()
