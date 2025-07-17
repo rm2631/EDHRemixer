@@ -6,12 +6,43 @@ st.set_page_config(layout="wide")
 
 # Streamlit UI
 def main():
-    st.title("Collection Manager")
 
-    # Initialize collections in session state
+    st.title("Collection Manager")
+    # Initialize collections in session state at the very start
     if "collections" not in st.session_state:
         st.session_state["collections"] = []
     collections = st.session_state["collections"]
+    # Simple import experience: use only the file uploader with a clear label
+    uploaded_file = st.file_uploader(
+        "Click to select a JSON file to import your collections",
+        type=["json"],
+        key="collections_uploader",
+        label_visibility="visible",
+    )
+    if uploaded_file:
+        import json
+
+        try:
+            imported_collections = json.load(uploaded_file)
+            if isinstance(imported_collections, list):
+                st.session_state["collections"] = imported_collections
+                st.success("Collections imported successfully!")
+                st.rerun()
+            else:
+                st.error("Invalid format: JSON must be a list of collections.")
+        except Exception as e:
+            st.error(f"Error importing collections: {e}")
+    import json
+
+    collections_json = json.dumps(st.session_state["collections"], indent=2)
+    st.download_button(
+        label="Export Collections",
+        data=collections_json,
+        file_name="collections.json",
+        mime="application/json",
+        use_container_width=False,
+        key="export_collections_download",
+    )
 
     # Handle form reset flag before rendering widgets
     if st.session_state.get("reset_form", False):
@@ -33,9 +64,12 @@ def main():
             value=st.session_state.get("is_source", False),
             key="is_source",
         )
-        btn_col1, btn_col2 = st.columns([1, 1])
-        add_clicked = btn_col1.button("Add Collection")
-        run_clicked = btn_col2.button("Run Engine")
+        add_clicked = st.button(
+            "Add Collection", use_container_width=True, key="add_collection"
+        )
+        run_clicked = st.button(
+            "Run Engine", use_container_width=True, key="run_engine"
+        )
         if add_clicked:
             new_collection = {
                 "name": st.session_state["name"],
