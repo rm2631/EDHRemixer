@@ -1,28 +1,7 @@
 import streamlit as st
 
 st.set_page_config(layout="wide")
-import streamlit.components.v1 as components
-
-# JavaScript code for interacting with browser local storage
-local_storage_js = """
-<script>
-function saveToLocalStorage(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-}
-
-function loadFromLocalStorage(key) {
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : null;
-}
-
-function deleteFromLocalStorage(key) {
-    localStorage.removeItem(key);
-}
-</script>
-"""
-
-# Inject JavaScript into the Streamlit app
-components.html(local_storage_js, height=0)
+# ...existing code...
 
 
 # Streamlit UI
