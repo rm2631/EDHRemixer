@@ -31,23 +31,32 @@ def main():
         st.session_state["collections"] = []
     collections = st.session_state["collections"]
 
+    # Handle form reset flag before rendering widgets
+    if st.session_state.get("reset_form", False):
+        st.session_state["name"] = ""
+        st.session_state["url"] = ""
+        st.session_state["is_source"] = False
+        st.session_state["reset_form"] = False
+        st.rerun()
+
     # Split layout into two columns
     col1, col2 = st.columns([1, 1])
 
     with col1:
-        st.header("Engine & Add Collection")
-        st.subheader("Add New Collection")
-        name = st.text_input("Name")
-        url = st.text_input("URL")
-        is_source = st.checkbox("Is Source")
+        st.header("Add New Collection")
+        name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
+        url = st.text_input("URL", value=st.session_state.get("url", ""), key="url")
+        is_source = st.checkbox("Is a Source?", value=st.session_state.get("is_source", False), key="is_source")
         btn_col1, btn_col2 = st.columns([1, 1])
         add_clicked = btn_col1.button("Add Collection")
         run_clicked = btn_col2.button("Run Engine")
         if add_clicked:
-            new_collection = {"name": name, "url": url, "is_source": is_source}
+            new_collection = {"name": st.session_state["name"], "url": st.session_state["url"], "is_source": st.session_state["is_source"]}
             collections.append(new_collection)
             st.session_state["collections"] = collections
+            st.session_state["reset_form"] = True
             st.success("Collection added successfully!")
+            st.rerun()
         if run_clicked:
             try:
                 from main import run
