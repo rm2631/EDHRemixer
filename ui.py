@@ -22,7 +22,7 @@ def main():
         st.rerun()
 
     # Split layout into two columns
-    col1, col2 = st.columns([1, 1])
+    col1, col2 = st.columns([1, 2])
 
     with col1:
         st.header("Add New Collection")
@@ -74,18 +74,23 @@ def main():
             key="collections_uploader",
             label_visibility="visible",
         )
-        if uploaded_file:
+        # Use a session flag to prevent repeated imports
+        if uploaded_file and not st.session_state.get("collections_imported", False):
             import json
 
             try:
                 imported_collections = json.load(uploaded_file)
                 if isinstance(imported_collections, list):
                     st.session_state["collections"] = imported_collections
+                    st.session_state["collections_imported"] = True
                     st.rerun()
                 else:
                     st.error("Invalid format: JSON must be a list of collections.")
             except Exception as e:
                 st.error(f"Error importing collections: {e}")
+        # Reset the flag if no file is uploaded
+        if not uploaded_file and st.session_state.get("collections_imported", False):
+            st.session_state["collections_imported"] = False
         import json
 
         collections_json = json.dumps(st.session_state["collections"], indent=2)
