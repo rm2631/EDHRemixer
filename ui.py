@@ -37,16 +37,21 @@ def main():
             "Add Collection", use_container_width=True, key="add_collection"
         )
         if add_clicked:
-            new_collection = {
-                "name": st.session_state["name"],
-                "url": st.session_state["url"],
-                "is_source": st.session_state["is_source"],
-            }
-            collections.append(new_collection)
-            st.session_state["collections"] = collections
-            st.session_state["reset_form"] = True
-            st.success("Collection added successfully!")
-            st.rerun()
+            if not st.session_state["name"].strip() or not st.session_state["url"].strip():
+                st.error("Name and URL cannot be empty.")
+            if "moxfield" not in st.session_state["url"]:
+                st.error("URL must be a valid Moxfield URL.")
+            else:
+                new_collection = {
+                    "name": st.session_state["name"],
+                    "url": st.session_state["url"],
+                    "is_source": st.session_state["is_source"],
+                }
+                collections.append(new_collection)
+                st.session_state["collections"] = collections
+                st.session_state["reset_form"] = True
+                st.success("Collection added successfully!")
+                st.rerun()
     with col2:
         st.header("Collections List")
         head1, head2 = st.columns([1, 1])
@@ -91,6 +96,17 @@ def main():
                 "Reshuffle", use_container_width=True, key="run_engine"
             )
             if run_clicked:
+                if not collections:
+                    st.error("No collections to process. Please add some first.")
+                    return
+                # the collections should contain a source and target
+                if not any(c["is_source"] for c in collections):
+                    st.error("At least one collection must be a source.")
+                    return
+                if not any(not c["is_source"] for c in collections):
+                    st.error("At least one collection must be a target.")
+                    return
+
                 try:
                     from main import run
 
