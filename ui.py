@@ -25,7 +25,7 @@ def main():
     col1, col2 = st.columns([1, 2])
 
     with col1:
-        st.header("Add New Collection")
+        st.subheader("Add New Collection")
         name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
         url = st.text_input("URL", value=st.session_state.get("url", ""), key="url")
         is_source = st.checkbox(
@@ -53,7 +53,6 @@ def main():
                 st.success("Collection added successfully!")
                 st.rerun()
     with col2:
-        st.header("Collections List")
         head1, head2 = st.columns([1, 1])
         with head1:
             collection_popover = st.popover("Manage collections", use_container_width=True)
