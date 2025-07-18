@@ -20,62 +20,7 @@ def main():
         st.session_state["reset_form"] = False
         st.rerun()
 
-    head1, head2 = st.columns([1, 1])
-    with head1:
-        collection_popover = st.popover("Manage collections", use_container_width=True)
-        # Simple import experience: use only the file uploader with a clear label
-        uploaded_file = collection_popover.file_uploader(
-            "Click to select a JSON file to import your collections",
-            type=["json"],
-            key="collections_uploader",
-            label_visibility="visible",
-        )
-        # Use a session flag to prevent repeated imports
-        if uploaded_file and not st.session_state.get("collections_imported", False):
-            import json
-
-            try:
-                imported_collections = json.load(uploaded_file)
-                if isinstance(imported_collections, list):
-                    st.session_state["collections"] = imported_collections
-                    st.session_state["collections_imported"] = True
-                    st.rerun()
-                else:
-                    st.error("Invalid format: JSON must be a list of collections.")
-            except Exception as e:
-                st.error(f"Error importing collections: {e}")
-        # Reset the flag if no file is uploaded
-        if not uploaded_file and st.session_state.get("collections_imported", False):
-            st.session_state["collections_imported"] = False
-        import json
-        collections_json = json.dumps(st.session_state["collections"], indent=2)
-        collection_popover.download_button(
-            label="Export Collections",
-            data=collections_json,
-            file_name="collections.json",
-            mime="application/json",
-            use_container_width=True,
-            key="export_collections_download",
-        )
-    with head2:
-        run_clicked = st.button(
-            "Reshuffle", use_container_width=True, key="run_engine"
-        )
-        if run_clicked:
-            try:
-                from main import run
-
-                output_file = run(collections)
-                st.download_button(
-                    label="Download Excel File",
-                    data=output_file,
-                    file_name="reshuffled.xlsx",  # You can set a static or dynamic filename
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                )
-                st.success("Engine ran successfully! You can download the file above.")
-            except Exception as e:
-                st.error(f"Error running the engine: {e}")
-
+    
     # Split layout into two columns
     col1, col2 = st.columns([1, 2])
 
@@ -104,6 +49,61 @@ def main():
             st.rerun()
     with col2:
         st.header("Collections List")
+        head1, head2 = st.columns([1, 1])
+        with head1:
+            collection_popover = st.popover("Manage collections", use_container_width=True)
+            # Simple import experience: use only the file uploader with a clear label
+            uploaded_file = collection_popover.file_uploader(
+                "Click to select a JSON file to import your collections",
+                type=["json"],
+                key="collections_uploader",
+                label_visibility="visible",
+            )
+            # Use a session flag to prevent repeated imports
+            if uploaded_file and not st.session_state.get("collections_imported", False):
+                import json
+
+                try:
+                    imported_collections = json.load(uploaded_file)
+                    if isinstance(imported_collections, list):
+                        st.session_state["collections"] = imported_collections
+                        st.session_state["collections_imported"] = True
+                        st.rerun()
+                    else:
+                        st.error("Invalid format: JSON must be a list of collections.")
+                except Exception as e:
+                    st.error(f"Error importing collections: {e}")
+            # Reset the flag if no file is uploaded
+            if not uploaded_file and st.session_state.get("collections_imported", False):
+                st.session_state["collections_imported"] = False
+            import json
+            collections_json = json.dumps(st.session_state["collections"], indent=2)
+            collection_popover.download_button(
+                label="Export Collections",
+                data=collections_json,
+                file_name="collections.json",
+                mime="application/json",
+                use_container_width=True,
+                key="export_collections_download",
+            )
+        with head2:
+            run_clicked = st.button(
+                "Reshuffle", use_container_width=True, key="run_engine"
+            )
+            if run_clicked:
+                try:
+                    from main import run
+
+                    output_file = run(collections)
+                    st.download_button(
+                        label="Download Excel File",
+                        data=output_file,
+                        file_name="reshuffled.xlsx",  # You can set a static or dynamic filename
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    )
+                    st.success("Engine ran successfully! You can download the file above.")
+                except Exception as e:
+                    st.error(f"Error running the engine: {e}")
 
 
         # Add header row for grid
