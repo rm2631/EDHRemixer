@@ -28,11 +28,6 @@ def main():
         st.subheader("Add New Collection")
         name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
         url = st.text_input("URL", value=st.session_state.get("url", ""), key="url")
-        is_source = st.checkbox(
-            "Is a Source?",
-            value=st.session_state.get("is_source", False),
-            key="is_source",
-        )
         add_clicked = st.button(
             "Add Collection", use_container_width=True, key="add_collection"
         )
@@ -45,7 +40,7 @@ def main():
                 new_collection = {
                     "name": st.session_state["name"],
                     "url": st.session_state["url"],
-                    "is_source": st.session_state["is_source"],
+                    "is_source": True,  # Default to True (source)
                 }
                 collections.append(new_collection)
                 st.session_state["collections"] = collections
@@ -131,8 +126,25 @@ def main():
         for i, collection in enumerate(collections):
             grid_cols = st.columns([2, 4, 2, 1])
             grid_cols[0].write(collection["name"])
-            grid_cols[1].write(collection["url"])
-            grid_cols[2].write("Source" if collection["is_source"] else "Target")
+            # Make URL clickable as a markdown link
+            grid_cols[1].markdown(f"[{collection['url']}]({collection['url']})")
+            # Allow in-place editing of Type with a selectbox
+            type_options = ["Source", "Target"]
+            current_type = "Source" if collection["is_source"] else "Target"
+            selected_type = grid_cols[2].selectbox(
+                "Type",
+                options=type_options,
+                index=type_options.index(current_type),
+                key=f"type_{i}",
+                label_visibility="collapsed"
+            )
+            # Update collection if type changed
+            new_is_source = (selected_type == "Source")
+            if new_is_source != collection["is_source"]:
+                collections[i]["is_source"] = new_is_source
+                st.session_state["collections"] = collections
+                st.rerun()
+            
             delete_icon = "🗑️"
             if grid_cols[3].button(delete_icon, key=f"delete_{i}"):
                 collections.pop(i)
