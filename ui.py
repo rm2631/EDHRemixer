@@ -118,14 +118,58 @@ def main():
     st.divider()
     st.subheader("Collections")
     
-    # Add header row for grid
+    # Initialize sort settings in session state
+    if "sort_column" not in st.session_state:
+        st.session_state["sort_column"] = None
+    if "sort_ascending" not in st.session_state:
+        st.session_state["sort_ascending"] = True
+    
+    # Add header row for grid with sorting controls
     header_cols = st.columns([2, 4, 2, 1])
-    header_cols[0].markdown("**Name**")
-    header_cols[1].markdown("**URL**")
-    header_cols[2].markdown("**Type**")
+    
+    # Create clickable headers for sorting
+    with header_cols[0]:
+        if st.button("▲▼ Name", key="sort_name", use_container_width=True):
+            if st.session_state["sort_column"] == "name":
+                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+            else:
+                st.session_state["sort_column"] = "name"
+                st.session_state["sort_ascending"] = True
+            st.rerun()
+    
+    with header_cols[1]:
+        if st.button("▲▼ URL", key="sort_url", use_container_width=True):
+            if st.session_state["sort_column"] == "url":
+                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+            else:
+                st.session_state["sort_column"] = "url"
+                st.session_state["sort_ascending"] = True
+            st.rerun()
+    
+    with header_cols[2]:
+        if st.button("▲▼ Type", key="sort_type", use_container_width=True):
+            if st.session_state["sort_column"] == "type":
+                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+            else:
+                st.session_state["sort_column"] = "type"
+                st.session_state["sort_ascending"] = True
+            st.rerun()
+    
     header_cols[3].markdown("**Delete**")
+    
+    # Sort collections based on current sort settings
+    sorted_collections = collections.copy()
+    if st.session_state["sort_column"] == "name":
+        sorted_collections.sort(key=lambda x: x["name"].lower(), reverse=not st.session_state["sort_ascending"])
+    elif st.session_state["sort_column"] == "url":
+        sorted_collections.sort(key=lambda x: x["url"].lower(), reverse=not st.session_state["sort_ascending"])
+    elif st.session_state["sort_column"] == "type":
+        sorted_collections.sort(key=lambda x: x["is_source"], reverse=not st.session_state["sort_ascending"])
+    
     # Display each collection in a horizontally aligned row
-    for i, collection in enumerate(collections):
+    for i, collection in enumerate(sorted_collections):
+        # Find original index for proper key management
+        original_index = collections.index(collection)
         grid_cols = st.columns([2, 4, 2, 1])
         grid_cols[0].write(collection["name"])
         # Make URL clickable as a markdown link
@@ -137,19 +181,19 @@ def main():
             "Type",
             options=type_options,
             index=type_options.index(current_type),
-            key=f"type_{i}",
+            key=f"type_{original_index}",
             label_visibility="collapsed"
         )
         # Update collection if type changed
         new_is_source = (selected_type == "Source")
         if new_is_source != collection["is_source"]:
-            collections[i]["is_source"] = new_is_source
+            collections[original_index]["is_source"] = new_is_source
             st.session_state["collections"] = collections
             st.rerun()
         
         delete_icon = "🗑️"
-        if grid_cols[3].button(delete_icon, key=f"delete_{i}"):
-            collections.pop(i)
+        if grid_cols[3].button(delete_icon, key=f"delete_{original_index}"):
+            collections.pop(original_index)
             st.session_state["collections"] = collections
             st.success(f"Deleted {collection['name']}")
             st.rerun()
