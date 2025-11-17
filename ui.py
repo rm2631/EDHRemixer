@@ -23,7 +23,7 @@ def main():
     
     # Form section at the top
     st.subheader("Add New Collection")
-    form_cols = st.columns([2, 2, 1, 1, 1])
+    form_cols = st.columns([2, 2, 1, 1])
     with form_cols[0]:
         name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
     with form_cols[1]:
@@ -33,42 +33,6 @@ def main():
             "Add Collection", use_container_width=True, key="add_collection"
         )
     with form_cols[3]:
-        collection_popover = st.popover("Manage", use_container_width=True)
-        # Simple import experience: use only the file uploader with a clear label
-        uploaded_file = collection_popover.file_uploader(
-            "Click to select a JSON file to import your collections",
-            type=["json"],
-            key="collections_uploader",
-            label_visibility="visible",
-        )
-        # Use a session flag to prevent repeated imports
-        if uploaded_file and not st.session_state.get("collections_imported", False):
-            import json
-
-            try:
-                imported_collections = json.load(uploaded_file)
-                if isinstance(imported_collections, list):
-                    st.session_state["collections"] = imported_collections
-                    st.session_state["collections_imported"] = True
-                    st.rerun()
-                else:
-                    st.error("Invalid format: JSON must be a list of collections.")
-            except Exception as e:
-                st.error(f"Error importing collections: {e}")
-        # Reset the flag if no file is uploaded
-        if not uploaded_file and st.session_state.get("collections_imported", False):
-            st.session_state["collections_imported"] = False
-        import json
-        collections_json = json.dumps(st.session_state["collections"], indent=2)
-        collection_popover.download_button(
-            label="Export Collections",
-            data=collections_json,
-            file_name="collections.json",
-            mime="application/json",
-            use_container_width=True,
-            key="export_collections_download",
-        )
-    with form_cols[4]:
         run_clicked = st.button(
             "Reshuffle", use_container_width=True, key="run_engine"
         )
