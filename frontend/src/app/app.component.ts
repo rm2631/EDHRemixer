@@ -34,10 +34,10 @@ export class AppComponent {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         this.collections = JSON.parse(stored);
-        // Migrate existing collections to have priority field if missing
+        // Migrate existing collections to have priority field if missing and ensure it's a number
         this.collections = this.collections.map(c => ({
           ...c,
-          priority: c.priority !== undefined ? c.priority : 3
+          priority: c.priority !== undefined ? Number(c.priority) : 3
         }));
         this.saveCollections();
       }
