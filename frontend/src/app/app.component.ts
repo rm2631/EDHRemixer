@@ -23,8 +23,30 @@ export class AppComponent {
   successMessage: string = '';
   sortColumn: SortColumn | null = null;
   sortAscending: boolean = true;
+  private readonly STORAGE_KEY = 'edhremixer_collections';
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) {
+    this.loadCollections();
+  }
+
+  private loadCollections(): void {
+    try {
+      const stored = localStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        this.collections = JSON.parse(stored);
+      }
+    } catch (error) {
+      console.error('Error loading collections from localStorage:', error);
+    }
+  }
+
+  private saveCollections(): void {
+    try {
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.collections));
+    } catch (error) {
+      console.error('Error saving collections to localStorage:', error);
+    }
+  }
 
   addCollection(): void {
     this.errorMessage = '';
@@ -49,6 +71,7 @@ export class AppComponent {
           is_source: true
         };
         this.collections.push(newCollection);
+        this.saveCollections();
         this.url = '';
         this.successMessage = 'Collection added successfully!';
         this.loading = false;
@@ -66,6 +89,7 @@ export class AppComponent {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
     this.collections.splice(originalIndex, 1);
+    this.saveCollections();
     this.successMessage = `Deleted ${collection.name}`;
     this.clearMessages();
   }
@@ -74,6 +98,7 @@ export class AppComponent {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
     this.collections[originalIndex].is_source = !this.collections[originalIndex].is_source;
+    this.saveCollections();
   }
 
   reshuffle(): void {
