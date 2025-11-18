@@ -68,7 +68,7 @@ npm start
 
 The frontend will run on `http://localhost:4200`
 
-Note: For local development, the frontend will proxy API requests to the backend.
+Note: The Angular dev server is configured with a proxy (`proxy.conf.json`) that forwards `/api/*` requests to the Flask backend at `http://localhost:5000`.
 
 ## Deployment on Render
 
