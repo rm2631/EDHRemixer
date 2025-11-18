@@ -1,4 +1,5 @@
 import streamlit as st
+from main import run, get_deck_name
 
 st.set_page_config(layout="wide")
 # ...existing code...
@@ -20,32 +21,27 @@ def main():
         st.session_state["reset_form"] = False
         st.rerun()
 
-    
     # Form section at the top
     st.subheader("Add New Collection")
-    form_cols = st.columns([2, 2, 1, 1])
+    form_cols = st.columns([5, 1, 1])
     with form_cols[0]:
-        name = st.text_input("Name", value=st.session_state.get("name", ""), key="name")
-    with form_cols[1]:
         url = st.text_input("URL", value=st.session_state.get("url", ""), key="url")
-    with form_cols[2]:
+    with form_cols[1]:
         add_clicked = st.button(
             "Add Collection", use_container_width=True, key="add_collection"
         )
-    with form_cols[3]:
-        run_clicked = st.button(
-            "Reshuffle", use_container_width=True, key="run_engine"
-        )
-    
+    with form_cols[2]:
+        run_clicked = st.button("Reshuffle", use_container_width=True, key="run_engine")
+
     # Handle Add Collection button click
     if add_clicked:
-        if not st.session_state["name"].strip() or not st.session_state["url"].strip():
-            st.error("Name and URL cannot be empty.")
+        if not st.session_state["url"].strip():
+            st.error("URL cannot be empty.")
         elif "moxfield" not in st.session_state["url"]:
             st.error("URL must be a valid Moxfield URL.")
         else:
             new_collection = {
-                "name": st.session_state["name"],
+                "name": get_deck_name(st.session_state["url"]),
                 "url": st.session_state["url"],
                 "is_source": True,  # Default to True (source)
             }
@@ -54,7 +50,7 @@ def main():
             st.session_state["reset_form"] = True
             st.success("Collection added successfully!")
             st.rerun()
-    
+
     # Handle Reshuffle button click
     if run_clicked:
         if not collections:
@@ -65,8 +61,6 @@ def main():
             st.error("At least one collection must be a target.")
         else:
             try:
-                from main import run
-
                 output_file = run(collections)
                 st.download_button(
                     label="Download Excel File",
@@ -81,55 +75,69 @@ def main():
     # Collections grid section below
     st.divider()
     st.subheader("Collections")
-    
+
     # Initialize sort settings in session state
     if "sort_column" not in st.session_state:
         st.session_state["sort_column"] = None
     if "sort_ascending" not in st.session_state:
         st.session_state["sort_ascending"] = True
-    
+
     # Add header row for grid with sorting controls
     header_cols = st.columns([2, 4, 2, 1])
-    
+
     # Create clickable headers for sorting
     with header_cols[0]:
         if st.button("▲▼ Name", key="sort_name", use_container_width=True):
             if st.session_state["sort_column"] == "name":
-                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+                st.session_state["sort_ascending"] = not st.session_state[
+                    "sort_ascending"
+                ]
             else:
                 st.session_state["sort_column"] = "name"
                 st.session_state["sort_ascending"] = True
             st.rerun()
-    
+
     with header_cols[1]:
         if st.button("▲▼ URL", key="sort_url", use_container_width=True):
             if st.session_state["sort_column"] == "url":
-                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+                st.session_state["sort_ascending"] = not st.session_state[
+                    "sort_ascending"
+                ]
             else:
                 st.session_state["sort_column"] = "url"
                 st.session_state["sort_ascending"] = True
             st.rerun()
-    
+
     with header_cols[2]:
         if st.button("▲▼ Type", key="sort_type", use_container_width=True):
             if st.session_state["sort_column"] == "type":
-                st.session_state["sort_ascending"] = not st.session_state["sort_ascending"]
+                st.session_state["sort_ascending"] = not st.session_state[
+                    "sort_ascending"
+                ]
             else:
                 st.session_state["sort_column"] = "type"
                 st.session_state["sort_ascending"] = True
             st.rerun()
-    
+
     header_cols[3].markdown("**Delete**")
-    
+
     # Sort collections based on current sort settings
     sorted_collections = collections.copy()
     if st.session_state["sort_column"] == "name":
-        sorted_collections.sort(key=lambda x: x["name"].lower(), reverse=not st.session_state["sort_ascending"])
+        sorted_collections.sort(
+            key=lambda x: x["name"].lower(),
+            reverse=not st.session_state["sort_ascending"],
+        )
     elif st.session_state["sort_column"] == "url":
-        sorted_collections.sort(key=lambda x: x["url"].lower(), reverse=not st.session_state["sort_ascending"])
+        sorted_collections.sort(
+            key=lambda x: x["url"].lower(),
+            reverse=not st.session_state["sort_ascending"],
+        )
     elif st.session_state["sort_column"] == "type":
-        sorted_collections.sort(key=lambda x: x["is_source"], reverse=not st.session_state["sort_ascending"])
-    
+        sorted_collections.sort(
+            key=lambda x: x["is_source"], reverse=not st.session_state["sort_ascending"]
+        )
+
     # Display each collection in a horizontally aligned row
     for i, collection in enumerate(sorted_collections):
         # Find original index for proper key management
@@ -146,15 +154,15 @@ def main():
             options=type_options,
             index=type_options.index(current_type),
             key=f"type_{original_index}",
-            label_visibility="collapsed"
+            label_visibility="collapsed",
         )
         # Update collection if type changed
-        new_is_source = (selected_type == "Source")
+        new_is_source = selected_type == "Source"
         if new_is_source != collection["is_source"]:
             collections[original_index]["is_source"] = new_is_source
             st.session_state["collections"] = collections
             st.rerun()
-        
+
         delete_icon = "🗑️"
         if grid_cols[3].button(delete_icon, key=f"delete_{original_index}"):
             collections.pop(original_index)
