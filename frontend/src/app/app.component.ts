@@ -34,6 +34,12 @@ export class AppComponent {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         this.collections = JSON.parse(stored);
+        // Migrate existing collections to have priority field if missing
+        this.collections = this.collections.map(c => ({
+          ...c,
+          priority: c.priority !== undefined ? c.priority : 3
+        }));
+        this.saveCollections();
       }
     } catch (error) {
       console.error('Error loading collections from localStorage:', error);
