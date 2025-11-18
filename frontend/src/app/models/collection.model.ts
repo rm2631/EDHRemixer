@@ -1,0 +1,5 @@
+export interface Collection {
+  name: string;
+  url: string;
+  is_source: boolean;
+}

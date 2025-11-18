@@ -1,0 +1,107 @@
+<div class="container">
+  <header>
+    <h1>{{ title }}</h1>
+  </header>
+
+  <!-- Alert Messages -->
+  <div class="alerts">
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+  </div>
+
+  <!-- Add New Collection Form -->
+  <section class="add-collection">
+    <h2>Add New Collection</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="url">URL</label>
+        <input
+          type="text"
+          id="url"
+          [(ngModel)]="url"
+          placeholder="Enter Moxfield URL"
+          [disabled]="loading"
+          (keyup.enter)="addCollection()"
+        />
+      </div>
+      <button
+        class="btn btn-primary"
+        (click)="addCollection()"
+        [disabled]="loading"
+      >
+        Add Collection
+      </button>
+      <button
+        class="btn btn-secondary"
+        (click)="reshuffle()"
+        [disabled]="loading"
+      >
+        Reshuffle
+      </button>
+    </div>
+  </section>
+
+  <!-- Collections Table -->
+  <section class="collections-section">
+    <h2>Collections</h2>
+    <div class="table-container">
+      <table class="collections-table">
+        <thead>
+          <tr>
+            <th (click)="sortBy('name')" class="sortable">
+              ▲▼ Name
+            </th>
+            <th (click)="sortBy('url')" class="sortable">
+              ▲▼ URL
+            </th>
+            <th (click)="sortBy('type')" class="sortable">
+              ▲▼ Type
+            </th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let collection of sortedCollections(); let i = index">
+            <td>{{ collection.name }}</td>
+            <td>
+              <a [href]="collection.url" target="_blank" rel="noopener noreferrer">
+                {{ collection.url }}
+              </a>
+            </td>
+            <td>
+              <select
+                [(ngModel)]="collection.is_source"
+                (change)="toggleType(i)"
+                class="type-select"
+              >
+                <option [value]="true">Source</option>
+                <option [value]="false">Target</option>
+              </select>
+            </td>
+            <td>
+              <button
+                class="btn btn-delete"
+                (click)="deleteCollection(i)"
+                title="Delete"
+              >
+                🗑️
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="collections.length === 0">
+            <td colspan="4" class="no-data">No collections added yet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Loading Overlay -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+</div>
