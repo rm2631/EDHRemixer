@@ -19,6 +19,24 @@ class MoxfieldConnector:
         return [v for k, v in cards.items()]
 
     @staticmethod
+    def get_deck_name(id: str) -> str:
+        base_url = "https://api2.moxfield.com/v3/decks/all/"
+        scraper = cloudscraper.create_scraper()
+        retries = 3
+        for _ in range(retries):
+            response = scraper.get(
+                url=base_url + id,
+                headers=MoxfieldConnector._build_headers(),
+            )
+            if response.status_code == 200:
+                break
+            sleep(5)  # Wait for 5 seconds before retrying
+        else:
+            raise Exception("Failed to fetch deck name")
+
+        return response.json()["name"]
+
+    @staticmethod
     def get_deck_content(id: str) -> list[dict]:
         base_url = "https://api2.moxfield.com/v3/decks/all/"
         scraper = cloudscraper.create_scraper()
