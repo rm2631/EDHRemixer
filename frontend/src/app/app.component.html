@@ -61,6 +61,7 @@
             <th (click)="sortBy('type')" class="sortable">
               ▲▼ Type
             </th>
+            <th>Priority</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -83,6 +84,19 @@
               </select>
             </td>
             <td>
+              <select
+                [(ngModel)]="collection.priority"
+                (change)="updatePriority(i)"
+                class="priority-select"
+              >
+                <option [value]="1">1</option>
+                <option [value]="2">2</option>
+                <option [value]="3">3</option>
+                <option [value]="4">4</option>
+                <option [value]="5">5</option>
+              </select>
+            </td>
+            <td>
               <button
                 class="btn btn-delete"
                 (click)="deleteCollection(i)"
@@ -93,7 +107,7 @@
             </td>
           </tr>
           <tr *ngIf="collections.length === 0">
-            <td colspan="4" class="no-data">No collections added yet</td>
+            <td colspan="5" class="no-data">No collections added yet</td>
           </tr>
         </tbody>
       </table>

@@ -60,9 +60,14 @@ class ShuffleManager:
         source_collections = list(
             set([card.source for card in available_cards if card.source is not None])
         )
+        # Sort sources by priority (highest first)
+        source_collections.sort(key=lambda c: c.priority, reverse=True)
+        
         target_collections = list(
             set([card.target for card in required_cards if card.target is not None])
         )
+        # Sort targets by priority (highest first)
+        target_collections.sort(key=lambda c: c.priority, reverse=True)
 
         combinations = [
             (source_collection, target_collection)

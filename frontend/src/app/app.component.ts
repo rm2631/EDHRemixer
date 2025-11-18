@@ -68,7 +68,8 @@ export class AppComponent {
         const newCollection: Collection = {
           name: response.name,
           url: this.url,
-          is_source: true
+          is_source: true,
+          priority: 3
         };
         this.collections.push(newCollection);
         this.saveCollections();
@@ -98,6 +99,13 @@ export class AppComponent {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
     this.collections[originalIndex].is_source = !this.collections[originalIndex].is_source;
+    this.saveCollections();
+  }
+
+  updatePriority(index: number): void {
+    const collection = this.sortedCollections()[index];
+    const originalIndex = this.collections.indexOf(collection);
+    this.collections[originalIndex].priority = collection.priority;
     this.saveCollections();
   }
 

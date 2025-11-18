@@ -183,7 +183,8 @@ h2 {
   text-decoration: underline;
 }
 
-.type-select {
+.type-select,
+.priority-select {
   padding: 6px 32px 6px 12px;
   border: 1px solid #d1d5db;
   border-radius: 4px;
@@ -192,10 +193,15 @@ h2 {
   cursor: pointer;
 }
 
-.type-select:focus {
+.type-select:focus,
+.priority-select:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.priority-select {
+  width: 60px;
 }
 
 .no-data {
