@@ -104,7 +104,8 @@ export class AppComponent {
   toggleType(index: number): void {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
-    this.collections[originalIndex].is_source = !this.collections[originalIndex].is_source;
+    collection.is_source = !collection.is_source;
+    this.collections[originalIndex].is_source = collection.is_source;
     this.saveCollections();
   }
 
