@@ -34,10 +34,11 @@ export class AppComponent {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (stored) {
         this.collections = JSON.parse(stored);
-        // Migrate existing collections to have priority field if missing and ensure it's a number
+        // Migrate existing collections to have priority and active fields if missing
         this.collections = this.collections.map((c) => ({
           ...c,
           priority: c.priority !== undefined ? Number(c.priority) : 3,
+          active: c.active !== undefined ? c.active : true,
         }));
         this.saveCollections();
       }
@@ -76,6 +77,7 @@ export class AppComponent {
           url: this.url,
           is_source: true,
           priority: 3,
+          active: true,
         };
         this.collections.push(newCollection);
         this.saveCollections();
@@ -111,6 +113,14 @@ export class AppComponent {
     this.saveCollections();
   }
 
+  toggleActive(index: number): void {
+    const collection = this.sortedCollections()[index];
+    const originalIndex = this.collections.indexOf(collection);
+    collection.active = !collection.active;
+    this.collections[originalIndex].active = collection.active;
+    this.saveCollections();
+  }
+
   updatePriority(index: number): void {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
@@ -128,8 +138,9 @@ export class AppComponent {
       return;
     }
 
-    const hasSources = this.collections.some((c) => c.is_source);
-    const hasTargets = this.collections.some((c) => !c.is_source);
+    const activeCollections = this.collections.filter((c) => c.active);
+    const hasSources = activeCollections.some((c) => c.is_source);
+    const hasTargets = activeCollections.some((c) => !c.is_source);
 
     if (!hasSources) {
       this.errorMessage = 'At least one collection must be a source.';

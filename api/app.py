@@ -70,9 +70,12 @@ def reshuffle():
             if "moxfield" not in collection.get("url", "").lower():
                 return jsonify({"error": "All URLs must be from Moxfield"}), 400
 
-        # Check for at least one source and one target
-        has_source = any(c.get("is_source") for c in data)
-        has_target = any(not c.get("is_source") for c in data)
+        # Filter active collections for validation
+        active_data = [c for c in data if c.get("active", True)]
+        
+        # Check for at least one source and one target among active collections
+        has_source = any(c.get("is_source") for c in active_data)
+        has_target = any(not c.get("is_source") for c in active_data)
 
         if not has_source:
             return jsonify({"error": "At least one collection must be a source"}), 400

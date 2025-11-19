@@ -7,6 +7,7 @@ class Collection(BaseModel):
     url: str
     is_source: bool
     priority: int = 3
+    active: bool = True
 
     @property
     def id(self) -> str:
