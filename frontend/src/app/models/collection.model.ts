@@ -3,4 +3,5 @@ export interface Collection {
   url: string;
   is_source: boolean;
   priority: number;
+  active: boolean;
 }

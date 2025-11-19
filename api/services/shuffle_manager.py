@@ -16,8 +16,11 @@ class ShuffleManager:
         self._handle_card_extractions(inputs, moxfield_connector)
 
     def _handle_card_extractions(self, inputs, moxfield_connector) -> None:
+        # Filter out inactive collections
+        active_inputs = [input for input in inputs if input.active]
+        
         cards = []
-        for input in inputs:
+        for input in active_inputs:
             if input.is_deck:
                 deck_cards = moxfield_connector.get_deck_content(input.id)
             else:

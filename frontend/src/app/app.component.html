@@ -54,6 +54,7 @@
           <tr>
             <th (click)="sortBy('name')" class="sortable">▲▼ Name</th>
             <th (click)="sortBy('url')" class="sortable">▲▼ URL</th>
+            <th>Active</th>
             <th (click)="sortBy('type')" class="sortable">▲▼ Type</th>
             <th>Priority</th>
             <th>Delete</th>
@@ -70,6 +71,20 @@
               >
                 {{ collection.url }}
               </a>
+            </td>
+            <td>
+              <div class="toggle-container">
+                <span class="toggle-label">Inactive</span>
+                <label class="toggle-switch">
+                  <input
+                    type="checkbox"
+                    [checked]="collection.active"
+                    (change)="toggleActive(i)"
+                  />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Active</span>
+              </div>
             </td>
             <td>
               <div class="toggle-container">
@@ -106,7 +121,7 @@
             </td>
           </tr>
           <tr *ngIf="collections.length === 0">
-            <td colspan="5" class="no-data">No collections added yet</td>
+            <td colspan="6" class="no-data">No collections added yet</td>
           </tr>
         </tbody>
       </table>
