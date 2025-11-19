@@ -62,7 +62,7 @@ class ShuffleManager:
         )
         # Sort sources by priority (highest first)
         source_collections.sort(key=lambda c: c.priority, reverse=True)
-        
+
         target_collections = list(
             set([card.target for card in required_cards if card.target is not None])
         )
@@ -107,6 +107,8 @@ class ShuffleManager:
 
     def reshuffle(self):
         while True:
+            if not self.available_cards or not self.required_cards:
+                break
             best_source = self._find_optimal_movement(
                 self.available_cards, self.required_cards
             )
