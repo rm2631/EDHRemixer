@@ -4,4 +4,5 @@ export interface Collection {
   is_source: boolean;
   priority: number;
   active: boolean;
+  include_sideboard: boolean;
 }

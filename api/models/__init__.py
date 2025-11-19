@@ -8,6 +8,7 @@ class Collection(BaseModel):
     is_source: bool
     priority: int = 3
     active: bool = True
+    include_sideboard: bool = False
 
     @property
     def id(self) -> str:
