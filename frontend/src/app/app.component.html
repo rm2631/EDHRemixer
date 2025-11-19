@@ -56,6 +56,7 @@
             <th (click)="sortBy('url')" class="sortable">▲▼ URL</th>
             <th>Active</th>
             <th (click)="sortBy('type')" class="sortable">▲▼ Type</th>
+            <th>Include Sideboard</th>
             <th>Priority</th>
             <th>Delete</th>
           </tr>
@@ -96,6 +97,14 @@
             </td>
             <td>
               <input
+                type="checkbox"
+                [checked]="collection.include_sideboard"
+                (change)="toggleSideboard(i)"
+                class="active-checkbox"
+              />
+            </td>
+            <td>
+              <input
                 type="number"
                 [(ngModel)]="collection.priority"
                 (change)="updatePriority(i)"
@@ -115,7 +124,7 @@
             </td>
           </tr>
           <tr *ngIf="collections.length === 0">
-            <td colspan="6" class="no-data">No collections added yet</td>
+            <td colspan="7" class="no-data">No collections added yet</td>
           </tr>
         </tbody>
       </table>

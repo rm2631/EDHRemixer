@@ -22,7 +22,7 @@ class ShuffleManager:
         cards = []
         for input in active_inputs:
             if input.is_deck:
-                deck_cards = moxfield_connector.get_deck_content(input.id)
+                deck_cards = moxfield_connector.get_deck_content(input.id, input.include_sideboard)
             else:
                 deck_cards = moxfield_connector.get_binder_content(input.id)
             for card in deck_cards:

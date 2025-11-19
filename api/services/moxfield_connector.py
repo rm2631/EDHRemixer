@@ -63,7 +63,7 @@ class MoxfieldConnector:
             return response.json()["name"]
 
     @staticmethod
-    def get_deck_content(id: str) -> list[dict]:
+    def get_deck_content(id: str, include_sideboard: bool = False) -> list[dict]:
         base_url = "https://api2.moxfield.com/v3/decks/all/"
         scraper = cloudscraper.create_scraper()
         retries = 3
@@ -87,8 +87,16 @@ class MoxfieldConnector:
         companions = MoxfieldConnector._unpack_response(
             response.json()["boards"]["companions"]["cards"]
         )
+        
+        cards = mainboard + commanders + companions
+        
+        if include_sideboard:
+            sideboard = MoxfieldConnector._unpack_response(
+                response.json()["boards"]["sideboard"]["cards"]
+            )
+            cards = cards + sideboard
 
-        return mainboard + commanders + companions
+        return cards
 
     @staticmethod
     def get_binder_content(id: str) -> list[dict]:
