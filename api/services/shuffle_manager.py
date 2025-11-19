@@ -60,9 +60,14 @@ class ShuffleManager:
         source_collections = list(
             set([card.source for card in available_cards if card.source is not None])
         )
+        # Sort sources by priority (highest first)
+        source_collections.sort(key=lambda c: c.priority, reverse=True)
+
         target_collections = list(
             set([card.target for card in required_cards if card.target is not None])
         )
+        # Sort targets by priority (highest first)
+        target_collections.sort(key=lambda c: c.priority, reverse=True)
 
         combinations = [
             (source_collection, target_collection)
@@ -82,7 +87,7 @@ class ShuffleManager:
             intersections.append((len(intersection), intersection))
 
         zipped = list(zip(combinations, intersections))
-        zipped.sort(key=lambda x: x[1][0], reverse=True)
+        zipped.sort(key=lambda x: (-x[0][0].priority, -x[0][1].priority, -x[1][0]))
         optimal = zipped[0]
 
         return Movement(
@@ -102,6 +107,8 @@ class ShuffleManager:
 
     def reshuffle(self):
         while True:
+            if not self.available_cards or not self.required_cards:
+                break
             best_source = self._find_optimal_movement(
                 self.available_cards, self.required_cards
             )

@@ -7,6 +7,20 @@
 			"command": ".venv\\Scripts\\Activate.ps1; streamlit run ui.py",
 			"isBackground": true,
 			"problemMatcher": []
+		},
+		{
+			"label": "Launch API",
+			"type": "shell",
+			"command": "cd api; ../.venv/Scripts/Activate.ps1; python app.py",
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Launch Frontend",
+			"type": "shell",
+			"command": "cd frontend; npm start",
+			"isBackground": true,
+			"problemMatcher": []
 		}
 	]
 }

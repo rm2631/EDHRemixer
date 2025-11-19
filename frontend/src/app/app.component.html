@@ -52,15 +52,10 @@
       <table class="collections-table">
         <thead>
           <tr>
-            <th (click)="sortBy('name')" class="sortable">
-              ▲▼ Name
-            </th>
-            <th (click)="sortBy('url')" class="sortable">
-              ▲▼ URL
-            </th>
-            <th (click)="sortBy('type')" class="sortable">
-              ▲▼ Type
-            </th>
+            <th (click)="sortBy('name')" class="sortable">▲▼ Name</th>
+            <th (click)="sortBy('url')" class="sortable">▲▼ URL</th>
+            <th (click)="sortBy('type')" class="sortable">▲▼ Type</th>
+            <th>Priority</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -68,19 +63,37 @@
           <tr *ngFor="let collection of sortedCollections(); let i = index">
             <td>{{ collection.name }}</td>
             <td>
-              <a [href]="collection.url" target="_blank" rel="noopener noreferrer">
+              <a
+                [href]="collection.url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {{ collection.url }}
               </a>
             </td>
             <td>
-              <select
-                [(ngModel)]="collection.is_source"
-                (change)="toggleType(i)"
-                class="type-select"
-              >
-                <option [value]="true">Source</option>
-                <option [value]="false">Target</option>
-              </select>
+              <div class="toggle-container">
+                <span class="toggle-label">Source</span>
+                <label class="toggle-switch">
+                  <input
+                    type="checkbox"
+                    [checked]="!collection.is_source"
+                    (change)="toggleType(i)"
+                  />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">Target</span>
+              </div>
+            </td>
+            <td>
+              <input
+                type="number"
+                [(ngModel)]="collection.priority"
+                (change)="updatePriority(i)"
+                min="1"
+                max="5"
+                class="priority-input"
+              />
             </td>
             <td>
               <button
@@ -93,7 +106,7 @@
             </td>
           </tr>
           <tr *ngIf="collections.length === 0">
-            <td colspan="4" class="no-data">No collections added yet</td>
+            <td colspan="5" class="no-data">No collections added yet</td>
           </tr>
         </tbody>
       </table>

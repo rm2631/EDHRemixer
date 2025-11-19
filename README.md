@@ -122,7 +122,6 @@ EDHRemixer/
 
 The following files are from the previous Streamlit implementation and are kept for reference:
 - `main.py` - Original main application logic
-- `ui.py` - Streamlit UI (deprecated)
 - `test.py` - Test file
 
 ## License

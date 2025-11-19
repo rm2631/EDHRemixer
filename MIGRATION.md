@@ -10,7 +10,6 @@ The original application was built using:
 - Direct integration between UI and services
 
 ### Files from Original Implementation
-- `ui.py` - Streamlit UI (deprecated)
 - `main.py` - Main application logic
 - `models/__init__.py` - Data models
 - `services/` - Business logic services
@@ -203,7 +202,6 @@ All features from the original Streamlit application have been preserved:
 
 ### Legacy Files
 The following files are kept for reference but are no longer used:
-- `ui.py` - Original Streamlit UI
 - Root-level `models/` and `services/` - Replaced by `api/models/` and `api/services/`
 
 These can be removed in a future cleanup if desired.
