@@ -12,7 +12,7 @@ type SortColumn = 'name' | 'url' | 'type';
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'Collection Manager';
@@ -35,9 +35,9 @@ export class AppComponent {
       if (stored) {
         this.collections = JSON.parse(stored);
         // Migrate existing collections to have priority field if missing and ensure it's a number
-        this.collections = this.collections.map(c => ({
+        this.collections = this.collections.map((c) => ({
           ...c,
-          priority: c.priority !== undefined ? Number(c.priority) : 3
+          priority: c.priority !== undefined ? Number(c.priority) : 3,
         }));
         this.saveCollections();
       }
@@ -75,7 +75,7 @@ export class AppComponent {
           name: response.name,
           url: this.url,
           is_source: true,
-          priority: 3
+          priority: 3,
         };
         this.collections.push(newCollection);
         this.saveCollections();
@@ -85,10 +85,12 @@ export class AppComponent {
         this.clearMessages();
       },
       error: (error) => {
-        this.errorMessage = `Error fetching deck name: ${error.error?.error || error.message}`;
+        this.errorMessage = `Error fetching deck name: ${
+          error.error?.error || error.message
+        }`;
         this.loading = false;
         this.clearMessages();
-      }
+      },
     });
   }
 
@@ -126,8 +128,8 @@ export class AppComponent {
       return;
     }
 
-    const hasSources = this.collections.some(c => c.is_source);
-    const hasTargets = this.collections.some(c => !c.is_source);
+    const hasSources = this.collections.some((c) => c.is_source);
+    const hasTargets = this.collections.some((c) => !c.is_source);
 
     if (!hasSources) {
       this.errorMessage = 'At least one collection must be a source.';
@@ -157,10 +159,12 @@ export class AppComponent {
         this.clearMessages();
       },
       error: (error) => {
-        this.errorMessage = `Error running the engine: ${error.error?.error || error.message}`;
+        this.errorMessage = `Error running the engine: ${
+          error.error?.error || error.message
+        }`;
         this.loading = false;
         this.clearMessages();
-      }
+      },
     });
   }
 
@@ -184,13 +188,15 @@ export class AppComponent {
 
       switch (this.sortColumn) {
         case 'name':
-          compareValue = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+          compareValue = a.name
+            .toLowerCase()
+            .localeCompare(b.name.toLowerCase());
           break;
         case 'url':
           compareValue = a.url.toLowerCase().localeCompare(b.url.toLowerCase());
           break;
         case 'type':
-          compareValue = a.is_source === b.is_source ? 0 : (a.is_source ? -1 : 1);
+          compareValue = a.is_source === b.is_source ? 0 : a.is_source ? -1 : 1;
           break;
       }
 
