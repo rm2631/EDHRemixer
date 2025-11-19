@@ -87,7 +87,7 @@ class ShuffleManager:
             intersections.append((len(intersection), intersection))
 
         zipped = list(zip(combinations, intersections))
-        zipped.sort(key=lambda x: x[1][0], reverse=True)
+        zipped.sort(key=lambda x: (-x[0][0].priority, -x[0][1].priority, -x[1][0]))
         optimal = zipped[0]
 
         return Movement(
