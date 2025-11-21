@@ -157,13 +157,20 @@ class ShuffleManager:
         self, source: Collection, target: Collection, card_ids: List[str]
     ):
         """Update indexes after moving cards - more efficient than rebuilding"""
+        # Count how many of each card_id to remove (respects duplicates in the list)
+        cards_to_remove = Counter(card_ids)
+
         # Update available_by_source
         if source in self.available_by_source:
-            self.available_by_source[source] = [
-                card
-                for card in self.available_by_source[source]
-                if card.uniqueCardId not in card_ids
-            ]
+            remaining_cards = []
+            for card in self.available_by_source[source]:
+                # Only remove if we still have cards of this ID to remove
+                if cards_to_remove[card.uniqueCardId] > 0:
+                    cards_to_remove[card.uniqueCardId] -= 1
+                else:
+                    remaining_cards.append(card)
+
+            self.available_by_source[source] = remaining_cards
             if not self.available_by_source[source]:
                 del self.available_by_source[source]
                 del self.available_counters[source]
@@ -173,13 +180,20 @@ class ShuffleManager:
                     [c.uniqueCardId for c in self.available_by_source[source]]
                 )
 
+        # Reset counter for required_by_target removal
+        cards_to_remove = Counter(card_ids)
+
         # Update required_by_target
         if target in self.required_by_target:
-            self.required_by_target[target] = [
-                card
-                for card in self.required_by_target[target]
-                if card.uniqueCardId not in card_ids
-            ]
+            remaining_cards = []
+            for card in self.required_by_target[target]:
+                # Only remove if we still have cards of this ID to remove
+                if cards_to_remove[card.uniqueCardId] > 0:
+                    cards_to_remove[card.uniqueCardId] -= 1
+                else:
+                    remaining_cards.append(card)
+
+            self.required_by_target[target] = remaining_cards
             if not self.required_by_target[target]:
                 del self.required_by_target[target]
                 del self.required_counters[target]
@@ -199,37 +213,44 @@ class ShuffleManager:
             if not best_movement or best_movement.intersection == 0:
                 break
 
-            # Batch process all cards in the intersection
-            cards_to_move = set(best_movement.intersection_cards)
+            # intersection_cards is a list where each element represents ONE card to move
+            # (Counter intersection already handles quantities correctly)
+            cards_moved = []
 
-            # Use the INDEX to get cards, not the main lists (which may be out of sync)
-            available_source_cards = self.available_by_source.get(
-                best_movement.source, []
-            )
-            required_target_cards = self.required_by_target.get(
-                best_movement.target, []
-            )
+            for card_id in best_movement.intersection_cards:
+                # Find ONE available card with this ID from the source
+                available_card = next(
+                    (
+                        card
+                        for card in self.available_cards
+                        if card.uniqueCardId == card_id
+                        and card.source == best_movement.source
+                    ),
+                    None,
+                )
+                # Find ONE required card with this ID from the target
+                required_card = next(
+                    (
+                        card
+                        for card in self.required_cards
+                        if card.uniqueCardId == card_id
+                        and card.target == best_movement.target
+                    ),
+                    None,
+                )
 
-            # Build lookup dictionaries from the indexed cards
-            available_by_id = {
-                card.uniqueCardId: card for card in available_source_cards
-            }
-            required_by_id = {card.uniqueCardId: card for card in required_target_cards}
-
-            for card_id in cards_to_move:
-                if card_id in available_by_id and card_id in required_by_id:
-                    available_card = available_by_id[card_id]
-                    required_card = required_by_id[card_id]
-
+                if available_card and required_card:
                     self.available_cards.remove(available_card)
                     self.required_cards.remove(required_card)
                     available_card.target = best_movement.target
                     self.allocated_cards.append(available_card)
+                    cards_moved.append(card_id)
 
-            # Update indexes incrementally
-            self._update_indexes_after_movement(
-                best_movement.source, best_movement.target, list(cards_to_move)
-            )
+            # Update indexes incrementally with only the cards actually moved
+            if cards_moved:
+                self._update_indexes_after_movement(
+                    best_movement.source, best_movement.target, cards_moved
+                )
 
         self._validate_shuffling()
         return self._build_excel_file()
