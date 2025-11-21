@@ -1,5 +1,6 @@
-from pydantic import BaseModel, computed_field
+from pydantic import BaseModel, computed_field, Field
 from typing import List, Union
+import uuid
 
 
 class Collection(BaseModel):
@@ -9,10 +10,7 @@ class Collection(BaseModel):
     priority: int = 3
     active: bool = True
     include_sideboard: bool = False
-
-    @property
-    def id(self) -> str:
-        return self.url.split("/")[-1]
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
 
     @property
     def is_deck(self) -> bool:
