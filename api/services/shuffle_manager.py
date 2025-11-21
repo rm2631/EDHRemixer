@@ -110,7 +110,7 @@ class ShuffleManager:
         best_score = (
             -float("inf"),
             -float("inf"),
-            -1,
+            -float("inf"),
         )  # (source_priority, target_priority, intersection_count)
 
         # Early exit: iterate in priority order and find best match
@@ -122,14 +122,15 @@ class ShuffleManager:
                 )
                 intersection_count = len(intersection)
 
+                # Score: higher priority and higher intersection count is better
                 current_score = (
-                    -source_collection.priority,
-                    -target_collection.priority,
-                    -intersection_count,
+                    source_collection.priority,
+                    target_collection.priority,
+                    intersection_count,
                 )
 
                 # If this is better than our best, update
-                if current_score < best_score:
+                if current_score > best_score:
                     best_score = current_score
                     best_movement = Movement(
                         source=source_collection,
