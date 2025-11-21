@@ -28,7 +28,6 @@ RUN pip install --no-cache-dir -r api/requirements.txt
 
 # Copy application code
 COPY api/ ./api/
-COPY models/ ./models/
 
 # Copy built frontend from previous stage
 COPY --from=frontend-builder /app/frontend/dist/frontend/browser ./frontend/dist/frontend/browser
