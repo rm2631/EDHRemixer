@@ -1,5 +1,5 @@
 from services.shuffle_manager import ShuffleManager
-from models import Collection
+from api.models import Collection
 
 
 def test_shuffle_manager():

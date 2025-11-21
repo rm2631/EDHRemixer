@@ -6,7 +6,7 @@ Test to reproduce the exact priority bug:
 """
 
 from services.shuffle_manager import ShuffleManager
-from models import Collection
+from api.models import Collection
 from unittest.mock import MagicMock
 
 

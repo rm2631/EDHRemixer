@@ -1,5 +1,5 @@
 from typing import List, ByteString, Dict, Set
-from models import Collection, Card, Movement
+from api.models import Collection, Card, Movement
 from services.moxfield_connector import MoxfieldConnector
 from collections import Counter, defaultdict
 import pandas as pd
@@ -23,10 +23,10 @@ class ShuffleManager:
         for input in active_inputs:
             if input.is_deck:
                 deck_cards = moxfield_connector.get_deck_content(
-                    input.id, input.include_sideboard
+                    input.moxfield_id, input.include_sideboard
                 )
             else:
-                deck_cards = moxfield_connector.get_binder_content(input.id)
+                deck_cards = moxfield_connector.get_binder_content(input.moxfield_id)
             for card in deck_cards:
                 for _ in range(card["quantity"]):
                     cards.append(

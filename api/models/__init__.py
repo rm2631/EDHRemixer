@@ -13,6 +13,10 @@ class Collection(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
 
     @property
+    def moxfield_id(self) -> str:
+        return self.url.split("/")[-1]
+
+    @property
     def is_deck(self) -> bool:
         return "deck" in self.url.lower()
 
