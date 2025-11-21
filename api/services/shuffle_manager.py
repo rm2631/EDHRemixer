@@ -206,25 +206,24 @@ class ShuffleManager:
             # Batch process all cards in the intersection
             cards_to_move = set(best_movement.intersection_cards)
 
-            # Use dictionary for O(1) lookup instead of repeated next() calls
+            # Use the INDEX to get cards, not the main lists (which may be out of sync)
+            available_source_cards = self.available_by_source.get(
+                best_movement.source, []
+            )
+            required_target_cards = self.required_by_target.get(
+                best_movement.target, []
+            )
+
+            # Build lookup dictionaries from the indexed cards
             available_by_id = {
-                (card.uniqueCardId, card.source): card
-                for card in self.available_cards
-                if card.source == best_movement.source
+                card.uniqueCardId: card for card in available_source_cards
             }
-            required_by_id = {
-                (card.uniqueCardId, card.target): card
-                for card in self.required_cards
-                if card.target == best_movement.target
-            }
+            required_by_id = {card.uniqueCardId: card for card in required_target_cards}
 
             for card_id in cards_to_move:
-                available_key = (card_id, best_movement.source)
-                required_key = (card_id, best_movement.target)
-
-                if available_key in available_by_id and required_key in required_by_id:
-                    available_card = available_by_id[available_key]
-                    required_card = required_by_id[required_key]
+                if card_id in available_by_id and card_id in required_by_id:
+                    available_card = available_by_id[card_id]
+                    required_card = required_by_id[card_id]
 
                     self.available_cards.remove(available_card)
                     self.required_cards.remove(required_card)
