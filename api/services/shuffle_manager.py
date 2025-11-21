@@ -113,7 +113,7 @@ class ShuffleManager:
             -float("inf"),
         )  # (source_priority, target_priority, intersection_count)
 
-        # Early exit: iterate in priority order and find best match
+        # Iterate through all combinations to find the best one
         for source_collection in source_collections:
             for target_collection in target_collections:
                 # Use fast intersection with pre-computed Counters
@@ -121,6 +121,10 @@ class ShuffleManager:
                     source_collection, target_collection
                 )
                 intersection_count = len(intersection)
+
+                # Skip combinations with no matches
+                if intersection_count == 0:
+                    continue
 
                 # Score: higher priority and higher intersection count is better
                 current_score = (
@@ -138,14 +142,6 @@ class ShuffleManager:
                         intersection=intersection_count,
                         intersection_cards=intersection,
                     )
-
-                    # Early exit: if we found cards with highest priority source and target, we're done
-                    if (
-                        intersection_count > 0
-                        and source_collection == source_collections[0]
-                        and target_collection == target_collections[0]
-                    ):
-                        return best_movement
 
         return best_movement
 
