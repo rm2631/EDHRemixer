@@ -3,7 +3,7 @@ Comprehensive test for priority-based allocation with edge cases
 """
 
 from services.shuffle_manager import ShuffleManager
-from api.models import Collection
+from models import Collection
 from unittest.mock import MagicMock
 
 

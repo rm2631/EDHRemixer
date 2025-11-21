@@ -4,7 +4,7 @@ from typing import List
 import os
 from io import BytesIO
 
-from api.models import Collection
+from models import Collection
 from services.shuffle_manager import ShuffleManager
 from services.moxfield_connector import MoxfieldConnector
 

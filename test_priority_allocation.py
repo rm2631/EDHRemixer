@@ -3,7 +3,7 @@ Test to verify that priority allocation continues after high-priority source is 
 """
 
 from services.shuffle_manager import ShuffleManager
-from api.models import Collection, Card
+from models import Collection, Card
 from unittest.mock import MagicMock
 
 

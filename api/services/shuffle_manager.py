@@ -1,5 +1,5 @@
 from typing import List, ByteString, Dict, Set
-from api.models import Collection, Card, Movement
+from models import Collection, Card, Movement
 from services.moxfield_connector import MoxfieldConnector
 from collections import Counter, defaultdict
 import pandas as pd
