@@ -18,11 +18,13 @@ class ShuffleManager:
     def _handle_card_extractions(self, inputs, moxfield_connector) -> None:
         # Filter out inactive collections
         active_inputs = [input for input in inputs if input.active]
-        
+
         cards = []
         for input in active_inputs:
             if input.is_deck:
-                deck_cards = moxfield_connector.get_deck_content(input.id, input.include_sideboard)
+                deck_cards = moxfield_connector.get_deck_content(
+                    input.id, input.include_sideboard
+                )
             else:
                 deck_cards = moxfield_connector.get_binder_content(input.id)
             for card in deck_cards:
@@ -90,8 +92,20 @@ class ShuffleManager:
             intersections.append((len(intersection), intersection))
 
         zipped = list(zip(combinations, intersections))
-        zipped.sort(key=lambda x: (-x[0][0].priority, -x[0][1].priority, -x[1][0]))
-        optimal = zipped[0]
+        # Filter out combinations with zero intersection before sorting
+        # This ensures we skip high-priority sources with no matching cards
+        zipped_with_cards = [z for z in zipped if z[1][0] > 0]
+
+        # If no combinations have matching cards, return the first combination with 0 intersection
+        if not zipped_with_cards:
+            zipped.sort(key=lambda x: (-x[0][0].priority, -x[0][1].priority, -x[1][0]))
+            optimal = zipped[0]
+        else:
+            # Sort by priority and intersection count, only considering combinations with cards
+            zipped_with_cards.sort(
+                key=lambda x: (-x[0][0].priority, -x[0][1].priority, -x[1][0])
+            )
+            optimal = zipped_with_cards[0]
 
         return Movement(
             source=optimal[0][0],
