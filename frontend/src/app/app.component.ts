@@ -23,15 +23,61 @@ export class AppComponent {
   successMessage: string = '';
   sortColumn: SortColumn | null = null;
   sortAscending: boolean = true;
-  private readonly STORAGE_KEY = 'edhremixer_collections';
+
+  // Profile management
+  currentProfile: number = 1;
+  profiles: number[] = [1, 2, 3];
+  private readonly STORAGE_KEY_PREFIX = 'edhremixer_collections_profile_';
+  private readonly CURRENT_PROFILE_KEY = 'edhremixer_current_profile';
 
   constructor(private apiService: ApiService) {
+    this.loadCurrentProfile();
     this.loadCollections();
+  }
+
+  private loadCurrentProfile(): void {
+    try {
+      const stored = localStorage.getItem(this.CURRENT_PROFILE_KEY);
+      if (stored) {
+        const profile = parseInt(stored, 10);
+        if (this.profiles.includes(profile)) {
+          this.currentProfile = profile;
+        }
+      }
+    } catch (error) {
+      console.error('Error loading current profile:', error);
+    }
+  }
+
+  private saveCurrentProfile(): void {
+    try {
+      localStorage.setItem(
+        this.CURRENT_PROFILE_KEY,
+        this.currentProfile.toString()
+      );
+    } catch (error) {
+      console.error('Error saving current profile:', error);
+    }
+  }
+
+  switchProfile(profileNumber: number): void {
+    if (this.currentProfile === profileNumber) {
+      return;
+    }
+    this.currentProfile = profileNumber;
+    this.saveCurrentProfile();
+    this.loadCollections();
+    this.successMessage = `Switched to Profile ${profileNumber}`;
+    this.clearMessages();
+  }
+
+  getProfileStorageKey(): string {
+    return `${this.STORAGE_KEY_PREFIX}${this.currentProfile}`;
   }
 
   private loadCollections(): void {
     try {
-      const stored = localStorage.getItem(this.STORAGE_KEY);
+      const stored = localStorage.getItem(this.getProfileStorageKey());
       if (stored) {
         this.collections = JSON.parse(stored);
         // Migrate existing collections to have priority, active, and include_sideboard fields if missing
@@ -39,7 +85,8 @@ export class AppComponent {
           ...c,
           priority: c.priority !== undefined ? Number(c.priority) : 3,
           active: c.active !== undefined ? c.active : true,
-          include_sideboard: c.include_sideboard !== undefined ? c.include_sideboard : false,
+          include_sideboard:
+            c.include_sideboard !== undefined ? c.include_sideboard : false,
         }));
         this.saveCollections();
       }
@@ -50,7 +97,10 @@ export class AppComponent {
 
   private saveCollections(): void {
     try {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.collections));
+      localStorage.setItem(
+        this.getProfileStorageKey(),
+        JSON.stringify(this.collections)
+      );
     } catch (error) {
       console.error('Error saving collections to localStorage:', error);
     }
@@ -127,7 +177,8 @@ export class AppComponent {
     const collection = this.sortedCollections()[index];
     const originalIndex = this.collections.indexOf(collection);
     collection.include_sideboard = !collection.include_sideboard;
-    this.collections[originalIndex].include_sideboard = collection.include_sideboard;
+    this.collections[originalIndex].include_sideboard =
+      collection.include_sideboard;
     this.saveCollections();
   }
 

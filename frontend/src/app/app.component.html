@@ -1,6 +1,19 @@
 <div class="container">
   <header>
     <h1>{{ title }}</h1>
+    <!-- Profile Selector -->
+    <div class="profile-selector">
+      <span class="profile-label">Profile:</span>
+      <button
+        *ngFor="let profile of profiles"
+        class="profile-btn"
+        [class.active]="currentProfile === profile"
+        (click)="switchProfile(profile)"
+        [disabled]="loading"
+      >
+        {{ profile }}
+      </button>
+    </div>
   </header>
 
   <!-- Alert Messages -->
