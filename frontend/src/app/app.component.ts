@@ -89,9 +89,13 @@ export class AppComponent {
             c.include_sideboard !== undefined ? c.include_sideboard : false,
         }));
         this.saveCollections();
+      } else {
+        // No data for this profile - clear collections
+        this.collections = [];
       }
     } catch (error) {
       console.error('Error loading collections from localStorage:', error);
+      this.collections = [];
     }
   }
 
