@@ -103,7 +103,7 @@ if __name__ == "__main__":
 
     # Configuration
     MIN_FREQUENCY = 2  # Minimum number of decks a card must appear in
-    MIN_PRICE = 5.0  # Minimum price in USD to consider a card "valuable"
+    MIN_PRICE = 2.0  # Minimum price in USD to consider a card "valuable"
     TOP_N = 30  # Number of top cards to show
 
     # Run the analysis
