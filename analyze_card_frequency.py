@@ -88,23 +88,38 @@ def print_top_cards(
 if __name__ == "__main__":
     # Example deck URLs - Replace with your actual deck URLs
     deck_urls = [
+        "https://moxfield.com/decks/7oABhPfADEGrB0gnS94CuA",
+        "https://moxfield.com/decks/4vPSqtO8sEel39ZiA9uvlA",
+        "https://moxfield.com/decks/AFlienbIHk6USEZch3w4cQ",
+        "https://moxfield.com/decks/k0EbPprWGEeXlhPOYQLtIw",
+        "https://moxfield.com/decks/1i9Ho1a19k6ua6Ry1ORHwA",
+        "https://moxfield.com/decks/Xuva8RqysEWE2U89YD5p8Q",
+        "https://moxfield.com/decks/MYSuLziCiEejPDJMNl6Bvw",
+        "https://moxfield.com/decks/UK4nyfbwKEmwSK1XI6LjmA",
+        "https://moxfield.com/decks/C6yH1t2n9EipzvUGiTDrkQ",
+        "https://moxfield.com/decks/UfoKSFs4RkS0v6c_kQyg0w",
+        "https://moxfield.com/decks/QnFjAcX-K0-3r6SwMnqYrQ",
+        "https://moxfield.com/decks/MfFEEZhoYEqAt_hgspOhGA",
+        "https://moxfield.com/decks/V1DVA7R6dUqZ56QsVLLA0Q",
+        "https://moxfield.com/decks/h5upWoX7Wk6G1HAKePI8hA",
+        "https://moxfield.com/decks/RJliqPu2eUylkgMxfIQTNQ",
+        "https://moxfield.com/decks/8ZE_QLrNa0efwnJ2HCyY4Q",
         "https://moxfield.com/decks/OAn68gPqOkia62Is5U-MOw",
-        "https://moxfield.com/decks/uU2g5R0GlUe4EC0dNGhFvA",
         "https://moxfield.com/decks/TXgOSSTqMEOilP-EObo_jQ",
-        "https://moxfield.com/decks/MByVMsEgdkuGPu9tQ6FBbg",
-        "https://moxfield.com/decks/xAcE-WdHqUqqxnHdjgLVWQ",
-        "https://moxfield.com/decks/8Tj0hXVVcUO57xXTtmj2wA",
-        "https://moxfield.com/decks/DROEU8URUk69Rqbl60k6Dg",
         "https://moxfield.com/decks/kGm5YIO4F0W1pGKiL2Sstw",
-        "https://moxfield.com/decks/N7qnCL5PiEyjAQg2tWFh2g",
+        "https://moxfield.com/decks/MByVMsEgdkuGPu9tQ6FBbg",
         "https://moxfield.com/decks/38J5tSDvG0Gy-A7zrhcu0g",
-        "https://moxfield.com/decks/SHi_Z3wJTEKNRdRILLQ5UA",
+        "https://moxfield.com/decks/N7qnCL5PiEyjAQg2tWFh2g",
+        "https://moxfield.com/decks/xAcE-WdHqUqqxnHdjgLVWQ",
+        "https://moxfield.com/decks/uU2g5R0GlUe4EC0dNGhFvA",
+        "https://moxfield.com/decks/8Tj0hXVVcUO57xXTtmj2wA",
+        "https://moxfield.com/decks/AMGlnRKJrUaK74hQ512NqQ",
     ]
 
     # Configuration
-    MIN_FREQUENCY = 2  # Minimum number of decks a card must appear in
-    MIN_PRICE = 2.0  # Minimum price in USD to consider a card "valuable"
-    TOP_N = 30  # Number of top cards to show
+    MIN_FREQUENCY = 3  # Minimum number of decks a card must appear in
+    MIN_PRICE = 3.0  # Minimum price in USD to consider a card "valuable"
+    TOP_N = 50  # Number of top cards to show
 
     # Run the analysis
     print("Starting card frequency analysis...")
