@@ -1,36 +1,8 @@
-from pyedhrec import EDHRec
-from pydantic import BaseModel
+from api.services.edhrec import get_average_deck
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Add the api directory to the path so we can import the moxfield connector
 from api.services.moxfield_connector import MoxfieldConnector
-
-edhrec = EDHRec()
-
-
-class Card(BaseModel):
-    count: str
-    name: str
-    basic_land: bool
-
-
-class Deck(BaseModel):
-    name: str
-    cards: list[Card]
-
-
-def get_average_deck(commander_name: str) -> Deck:
-    average_deck = edhrec.get_commanders_average_deck(commander_name)
-    basics = ["Plains", "Island", "Swamp", "Mountain", "Forest"]
-    cards = [
-        Card(
-            count=card.split(" ", 1)[0],
-            name=card.split(" ", 1)[1],
-            basic_land=card.split(" ", 1)[1] in basics,
-        )
-        for card in average_deck["decklist"]
-    ]
-    return Deck(name=commander_name, cards=cards)
 
 
 def get_my_collection(binder_ids: list[str]) -> tuple[set[str], list[dict]]:
