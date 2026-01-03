@@ -1,6 +1,7 @@
 from typing import List, ByteString, Dict, Set
 from models import Collection, Card, Movement
 from services.moxfield_connector import MoxfieldConnector
+from api.services.edhrec import get_card_overall_inclusion
 from collections import Counter, defaultdict
 import pandas as pd
 from io import BytesIO
@@ -258,16 +259,42 @@ class ShuffleManager:
     def _build_excel_file(self) -> ByteString:
         cards = self.allocated_cards + self.required_cards + self.available_cards
         cards.sort(key=lambda x: x.name)
+
+        # Get inclusion data for cards without source (cards to buy)
+        # Cache by card name to avoid duplicate API calls
+        inclusion_cache = {}
+        cards_to_fetch = set()
+
+        for card in cards:
+            if card.source is None and card.name not in inclusion_cache:
+                cards_to_fetch.add(card.name)
+
+        # Fetch inclusion data for unique cards
+        print(
+            f"Fetching EDHREC inclusion data for {len(cards_to_fetch)} unique cards..."
+        )
+        for card_name in cards_to_fetch:
+            data = get_card_overall_inclusion(card_name)
+            if data:
+                inclusion_cache[card_name] = data["inclusion_percentage"]
+            else:
+                inclusion_cache[card_name] = None
+
+        # Build DataFrame with inclusion column
         df = pd.DataFrame(
             [
                 {
                     **card.model_dump(),
                     "source": card.source.name if card.source is not None else None,
                     "target": card.target.name if card.target is not None else None,
+                    "inclusion": (
+                        inclusion_cache.get(card.name) if card.source is None else None
+                    ),
                 }
                 for card in cards
             ]
         )
+
         with BytesIO() as buffer:
             with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:  # type: ignore
                 df.to_excel(writer, sheet_name="Sheet1")
