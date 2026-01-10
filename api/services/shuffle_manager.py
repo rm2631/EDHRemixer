@@ -261,59 +261,13 @@ class ShuffleManager:
         cards = self.allocated_cards + self.required_cards + self.available_cards
         cards.sort(key=lambda x: x.name)
 
-        # Get inclusion data for cards without source (cards to buy)
-        # Cache by card name to avoid duplicate API calls
-        inclusion_cache = {}
-        cards_to_fetch = set()
-
-        for card in cards:
-            if card.source is None and card.name not in inclusion_cache:
-                cards_to_fetch.add(card.name)
-
-        # Fetch inclusion data for unique cards in parallel
-        print(
-            f"Fetching EDHREC inclusion data for {len(cards_to_fetch)} unique cards (parallelized)..."
-        )
-
-        def fetch_card_data(card_name):
-            """Helper function to fetch data for a single card"""
-            data = get_card_overall_inclusion(card_name)
-            if data:
-                return (card_name, data["inclusion_percentage"])
-            else:
-                return (card_name, None)
-
-        # Use ThreadPoolExecutor to parallelize API calls (max 10 concurrent requests)
-        with ThreadPoolExecutor(max_workers=10) as executor:
-            future_to_card = {
-                executor.submit(fetch_card_data, card_name): card_name
-                for card_name in cards_to_fetch
-            }
-
-            completed = 0
-            for future in as_completed(future_to_card):
-                card_name, inclusion = future.result()
-                inclusion_cache[card_name] = inclusion
-                completed += 1
-                if completed % 20 == 0:  # Progress indicator every 20 cards
-                    print(
-                        f"  Progress: {completed}/{len(cards_to_fetch)} cards fetched..."
-                    )
-
-        print(
-            f"  Completed: {len(cards_to_fetch)}/{len(cards_to_fetch)} cards fetched."
-        )
-
-        # Build DataFrame with inclusion column
+        # Build DataFrame
         df = pd.DataFrame(
             [
                 {
                     **card.model_dump(),
                     "source": card.source.name if card.source is not None else None,
                     "target": card.target.name if card.target is not None else None,
-                    "inclusion": (
-                        inclusion_cache.get(card.name) if card.source is None else None
-                    ),
                 }
                 for card in cards
             ]
