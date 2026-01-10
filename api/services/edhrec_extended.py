@@ -45,8 +45,12 @@ class EDHRecExtended(EDHRec):
             Sol Ring: 83.8%
         """
         try:
+            # Handle double-sided cards - only use the first part for URL
+            card_name_for_url = card_name.split(" // ")[0].strip()
+
             # Get the card URL using the parent class method
-            card_url = self.get_card_link(card_name)
+            card_url = self.get_card_link(card_name_for_url)
+
             full_url = (
                 card_url
                 if card_url.startswith("http")
@@ -76,14 +80,20 @@ class EDHRecExtended(EDHRec):
                     "url": full_url,
                 }
             else:
-                print(f"Warning: Could not find inclusion data for '{card_name}'")
+                print(
+                    f"Warning: Could not find inclusion data for '{card_name}'. Continuing..."
+                )
                 return None
 
         except requests.RequestException as e:
-            print(f"Error fetching data for '{card_name}': {e}")
+            print(
+                f"Error fetching data from EDHRec for '{card_name}': {e}. Continuing..."
+            )
             return None
         except Exception as e:
-            print(f"Unexpected error getting inclusion for '{card_name}': {e}")
+            print(
+                f"Unexpected error getting inclusion for '{card_name}': {e}. Continuing..."
+            )
             return None
 
     def get_card_full_stats(
