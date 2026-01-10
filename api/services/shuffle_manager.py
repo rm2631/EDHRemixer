@@ -5,6 +5,7 @@ from services.edhrec import get_card_overall_inclusion
 from collections import Counter, defaultdict
 import pandas as pd
 from io import BytesIO
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 class ShuffleManager:
@@ -269,16 +270,39 @@ class ShuffleManager:
             if card.source is None and card.name not in inclusion_cache:
                 cards_to_fetch.add(card.name)
 
-        # Fetch inclusion data for unique cards
+        # Fetch inclusion data for unique cards in parallel
         print(
-            f"Fetching EDHREC inclusion data for {len(cards_to_fetch)} unique cards..."
+            f"Fetching EDHREC inclusion data for {len(cards_to_fetch)} unique cards (parallelized)..."
         )
-        for card_name in cards_to_fetch:
+
+        def fetch_card_data(card_name):
+            """Helper function to fetch data for a single card"""
             data = get_card_overall_inclusion(card_name)
             if data:
-                inclusion_cache[card_name] = data["inclusion_percentage"]
+                return (card_name, data["inclusion_percentage"])
             else:
-                inclusion_cache[card_name] = None
+                return (card_name, None)
+
+        # Use ThreadPoolExecutor to parallelize API calls (max 10 concurrent requests)
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            future_to_card = {
+                executor.submit(fetch_card_data, card_name): card_name
+                for card_name in cards_to_fetch
+            }
+
+            completed = 0
+            for future in as_completed(future_to_card):
+                card_name, inclusion = future.result()
+                inclusion_cache[card_name] = inclusion
+                completed += 1
+                if completed % 20 == 0:  # Progress indicator every 20 cards
+                    print(
+                        f"  Progress: {completed}/{len(cards_to_fetch)} cards fetched..."
+                    )
+
+        print(
+            f"  Completed: {len(cards_to_fetch)}/{len(cards_to_fetch)} cards fetched."
+        )
 
         # Build DataFrame with inclusion column
         df = pd.DataFrame(

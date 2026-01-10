@@ -6,6 +6,7 @@ for cards across all Commander decks, not just for specific commanders.
 """
 
 import re
+import time
 from typing import Optional, Dict
 import requests
 from bs4 import BeautifulSoup
@@ -16,6 +17,11 @@ class EDHRecExtended(EDHRec):
     """
     Extended EDHRec class that adds methods for getting overall card statistics.
     """
+
+    def __init__(self):
+        super().__init__()
+        self._cache = {}  # Cache for inclusion data
+        self._last_request_time = 0  # For rate limiting
 
     def get_overall_card_inclusion(self, card_name: str) -> Optional[Dict]:
         """
@@ -44,6 +50,15 @@ class EDHRecExtended(EDHRec):
             >>> print(f"{data['card_name']}: {data['inclusion_percentage']}%")
             Sol Ring: 83.8%
         """
+        # Check cache first
+        if card_name in self._cache:
+            return self._cache[card_name]
+
+        # Rate limiting - wait at least 0.1 seconds between requests
+        time_since_last = time.time() - self._last_request_time
+        if time_since_last < 0.1:
+            time.sleep(0.1 - time_since_last)
+
         try:
             # Handle double-sided cards - only use the first part for URL
             card_name_for_url = card_name.split(" // ")[0].strip()
@@ -72,28 +87,37 @@ class EDHRecExtended(EDHRec):
             match = re.search(inclusion_pattern, page_text)
 
             if match:
-                return {
+                result = {
                     "card_name": card_name,
                     "inclusion_percentage": float(match.group(1)),
                     "num_decks": match.group(2),
                     "total_decks": match.group(3),
                     "url": full_url,
                 }
+                self._cache[card_name] = result  # Cache the result
+                self._last_request_time = time.time()
+                return result
             else:
                 print(
                     f"Warning: Could not find inclusion data for '{card_name}'. Continuing..."
                 )
+                self._cache[card_name] = None  # Cache None to avoid retrying
+                self._last_request_time = time.time()
                 return None
 
         except requests.RequestException as e:
             print(
                 f"Error fetching data from EDHRec for '{card_name}': {e}. Continuing..."
             )
+            self._cache[card_name] = None  # Cache None to avoid retrying
+            self._last_request_time = time.time()
             return None
         except Exception as e:
             print(
                 f"Unexpected error getting inclusion for '{card_name}': {e}. Continuing..."
             )
+            self._cache[card_name] = None  # Cache None to avoid retrying
+            self._last_request_time = time.time()
             return None
 
     def get_card_full_stats(
