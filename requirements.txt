@@ -1,0 +1,5 @@
+# Root requirements file for Render deployment
+# This ensures Render installs all necessary Python dependencies
+# The actual requirements are in api/requirements.txt
+
+-r api/requirements.txt
