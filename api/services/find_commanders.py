@@ -1,8 +1,8 @@
-from api.services.edhrec import get_average_deck
+from services.edhrec import get_average_deck
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # Add the api directory to the path so we can import the moxfield connector
-from api.services.moxfield_connector import MoxfieldConnector
+from services.moxfield_connector import MoxfieldConnector
 
 
 def get_my_collection(binder_ids: list[str]) -> tuple[set[str], list[dict]]:

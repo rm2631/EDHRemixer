@@ -1,4 +1,4 @@
-from api.services.edhrec_extended import EDHRecExtended
+from services.edhrec_extended import EDHRecExtended
 from pydantic import BaseModel
 
 edhrec = EDHRecExtended()

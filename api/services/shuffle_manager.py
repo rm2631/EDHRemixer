@@ -1,7 +1,7 @@
 from typing import List, ByteString, Dict, Set
 from models import Collection, Card, Movement
 from services.moxfield_connector import MoxfieldConnector
-from api.services.edhrec import get_card_overall_inclusion
+from services.edhrec import get_card_overall_inclusion
 from collections import Counter, defaultdict
 import pandas as pd
 from io import BytesIO
