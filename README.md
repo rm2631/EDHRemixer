@@ -70,6 +70,41 @@ The frontend will run on `http://localhost:4200`
 
 Note: The Angular dev server is configured with a proxy (`proxy.conf.json`) that forwards `/api/*` requests to the Flask backend at `http://localhost:5000`.
 
+## Docker Deployment
+
+### Building and Running with Docker
+
+This application includes a multi-stage Dockerfile that builds both the Angular frontend and Python backend into a single container.
+
+#### Local Docker Build
+
+```bash
+docker build -t edh-remixer:latest .
+docker run -p 8000:8000 edh-remixer:latest
+```
+
+The application will be available at `http://localhost:8000`
+
+#### Using GitHub Container Registry
+
+The application automatically builds and pushes Docker images to GitHub Container Registry (GHCR) on every push to the `main` or `master` branch.
+
+**Pull the latest image:**
+```bash
+docker login ghcr.io
+docker pull ghcr.io/rm2631/EDHRemixer:latest
+docker run -p 8000:8000 ghcr.io/rm2631/EDHRemixer:latest
+```
+
+**Pull a specific version (by commit SHA):**
+```bash
+docker pull ghcr.io/rm2631/EDHRemixer:<commit-sha>
+docker run -p 8000:8000 ghcr.io/rm2631/EDHRemixer:<commit-sha>
+```
+
+**View build logs:**
+Navigate to your repository's **Actions** tab to see Docker build logs and history.
+
 ## Deployment on Render
 
 This application is configured for deployment on Render using the `render.yaml` blueprint.
@@ -115,6 +150,10 @@ EDHRemixer/
 ├── models/                   # Shared models (legacy)
 ├── services/                 # Shared services (legacy)
 ├── render.yaml              # Render deployment configuration
+├── Dockerfile               # Multi-stage Docker build configuration
+├── .github/
+│   └── workflows/
+│       └── docker-build.yml # GitHub Actions workflow for Docker builds
 └── README.md                # This file
 ```
 
