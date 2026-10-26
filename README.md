@@ -92,14 +92,14 @@ The application automatically builds and pushes Docker images to GitHub Containe
 **Pull the latest image:**
 ```bash
 docker login ghcr.io
-docker pull ghcr.io/rm2631/EDHRemixer:latest
-docker run -p 8000:8000 ghcr.io/rm2631/EDHRemixer:latest
+docker pull ghcr.io/rm2631/edhremixer:latest
+docker run -p 8000:8000 ghcr.io/rm2631/edhremixer:latest
 ```
 
 **Pull a specific version (by commit SHA):**
 ```bash
-docker pull ghcr.io/rm2631/EDHRemixer:<commit-sha>
-docker run -p 8000:8000 ghcr.io/rm2631/EDHRemixer:<commit-sha>
+docker pull ghcr.io/rm2631/edhremixer:<commit-sha>
+docker run -p 8000:8000 ghcr.io/rm2631/edhremixer:<commit-sha>
 ```
 
 **View build logs:**
