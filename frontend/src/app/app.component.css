@@ -163,18 +163,6 @@ h2 {
   background-color: #4b5563;
 }
 
-.btn-delete {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-.btn-delete:hover {
-  opacity: 0.7;
-}
-
 .collections-section {
   background: #ffffff;
   padding: 24px;
@@ -202,15 +190,6 @@ h2 {
   font-weight: 600;
   color: #374151;
   border-bottom: 2px solid #e5e7eb;
-}
-
-.collections-table th.sortable {
-  cursor: pointer;
-  user-select: none;
-}
-
-.collections-table th.sortable:hover {
-  background-color: #f3f4f6;
 }
 
 .collections-table td {
@@ -280,12 +259,6 @@ h2 {
   gap: 8px;
 }
 
-.toggle-label {
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 500;
-}
-
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -339,35 +312,4 @@ h2 {
   text-align: center;
   color: #6b7280;
   font-style: italic;
-}
-
-.loading-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.spinner {
-  border: 4px solid #f3f4f6;
-  border-top: 4px solid #3b82f6;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

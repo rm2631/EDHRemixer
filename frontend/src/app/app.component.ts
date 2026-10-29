@@ -19,6 +19,8 @@ export class AppComponent {
   collections: Collection[] = [];
   url: string = '';
   loading: boolean = false;
+  loadingMessage: string = '';
+  showReshuffleReview: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
   sortColumn: SortColumn | null = null;
@@ -75,6 +77,26 @@ export class AppComponent {
     return `${this.STORAGE_KEY_PREFIX}${this.currentProfile}`;
   }
 
+  get activeSourceCollections(): Collection[] {
+    return this.collections.filter(
+      (collection) => collection.active && collection.is_source
+    );
+  }
+
+  get activeTargetCollections(): Collection[] {
+    return this.collections.filter(
+      (collection) => collection.active && !collection.is_source
+    );
+  }
+
+  get activeCollectionCount(): number {
+    return this.collections.filter((collection) => collection.active).length;
+  }
+
+  get inactiveCollectionCount(): number {
+    return this.collections.filter((collection) => !collection.active).length;
+  }
+
   private loadCollections(): void {
     try {
       const stored = localStorage.getItem(this.getProfileStorageKey());
@@ -113,6 +135,7 @@ export class AppComponent {
   addCollection(): void {
     this.errorMessage = '';
     this.successMessage = '';
+    this.showReshuffleReview = false;
 
     if (!this.url.trim()) {
       this.errorMessage = 'URL cannot be empty.';
@@ -125,6 +148,7 @@ export class AppComponent {
     }
 
     this.loading = true;
+    this.loadingMessage = 'Looking up collection…';
     this.apiService.getDeckName(this.url).subscribe({
       next: (response) => {
         const newCollection: Collection = {
@@ -140,6 +164,7 @@ export class AppComponent {
         this.url = '';
         this.successMessage = 'Collection added successfully!';
         this.loading = false;
+        this.loadingMessage = '';
         this.clearMessages();
       },
       error: (error) => {
@@ -147,6 +172,7 @@ export class AppComponent {
           error.error?.error || error.message
         }`;
         this.loading = false;
+        this.loadingMessage = '';
         this.clearMessages();
       },
     });
@@ -196,30 +222,34 @@ export class AppComponent {
   reshuffle(): void {
     this.errorMessage = '';
     this.successMessage = '';
+    this.showReshuffleReview = false;
 
-    if (this.collections.length === 0) {
-      this.errorMessage = 'No collections to process. Please add some first.';
+    if (this.activeCollectionCount === 0) {
+      this.errorMessage =
+        'No active collections to process. Activate a collection first.';
       this.clearMessages();
       return;
     }
 
-    const activeCollections = this.collections.filter((c) => c.active);
-    const hasSources = activeCollections.some((c) => c.is_source);
-    const hasTargets = activeCollections.some((c) => !c.is_source);
-
-    if (!hasSources) {
+    if (this.activeSourceCollections.length === 0) {
       this.errorMessage = 'At least one collection must be a source.';
       this.clearMessages();
       return;
     }
 
-    if (!hasTargets) {
+    if (this.activeTargetCollections.length === 0) {
       this.errorMessage = 'At least one collection must be a target.';
       this.clearMessages();
       return;
     }
 
+    this.showReshuffleReview = true;
+  }
+
+  confirmReshuffle(): void {
+    this.showReshuffleReview = false;
     this.loading = true;
+    this.loadingMessage = 'Reshuffling collections…';
     this.apiService.reshuffle(this.collections).subscribe({
       next: (blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -232,6 +262,7 @@ export class AppComponent {
         document.body.removeChild(a);
         this.successMessage = 'Engine ran successfully! File downloaded.';
         this.loading = false;
+        this.loadingMessage = '';
         this.clearMessages();
       },
       error: (error) => {
@@ -239,6 +270,7 @@ export class AppComponent {
           error.error?.error || error.message
         }`;
         this.loading = false;
+        this.loadingMessage = '';
         this.clearMessages();
       },
     });

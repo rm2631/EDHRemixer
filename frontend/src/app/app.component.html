@@ -17,14 +17,41 @@
   </header>
 
   <!-- Alert Messages -->
-  <div class="alerts">
-    <div *ngIf="errorMessage" class="alert alert-error">
+  <div class="alerts" aria-live="polite">
+    <div *ngIf="loading" class="alert alert-progress" role="status">
+      <span class="spinner spinner-small" aria-hidden="true"></span>
+      {{ loadingMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-error" role="alert">
       {{ errorMessage }}
     </div>
-    <div *ngIf="successMessage" class="alert alert-success">
+    <div *ngIf="successMessage" class="alert alert-success" role="status">
       {{ successMessage }}
     </div>
   </div>
+
+  <section class="workflow-summary" aria-label="Reshuffle readiness">
+    <div class="summary-copy">
+      <h2>Reshuffle overview</h2>
+      <p>Active source collections provide cards; active target collections receive them.</p>
+    </div>
+    <div class="summary-stats">
+      <div class="summary-stat">
+        <span class="role-badge role-source">Sources</span>
+        <strong>{{ activeSourceCollections.length }}</strong>
+        <span>active</span>
+      </div>
+      <div class="summary-stat">
+        <span class="role-badge role-target">Targets</span>
+        <strong>{{ activeTargetCollections.length }}</strong>
+        <span>active</span>
+      </div>
+      <div class="summary-stat summary-inactive">
+        <strong>{{ inactiveCollectionCount }}</strong>
+        <span>paused</span>
+      </div>
+    </div>
+  </section>
 
   <!-- Add New Collection Form -->
   <section class="add-collection">
@@ -33,10 +60,11 @@
       <div class="form-group">
         <label for="url">URL</label>
         <input
-          type="text"
+          type="url"
           id="url"
           [(ngModel)]="url"
-          placeholder="Enter Moxfield URL"
+          placeholder="https://www.moxfield.com/decks/..."
+          autocomplete="url"
           [disabled]="loading"
           (keyup.enter)="addCollection()"
         />
@@ -46,32 +74,92 @@
         (click)="addCollection()"
         [disabled]="loading"
       >
-        Add Collection
+        {{ loading && loadingMessage.startsWith('Looking up') ? 'Looking up…' : 'Add Collection' }}
       </button>
       <button
         class="btn btn-secondary"
         (click)="reshuffle()"
-        [disabled]="loading"
+        [disabled]="loading || collections.length === 0"
       >
         Reshuffle
       </button>
     </div>
   </section>
 
+  <section
+    *ngIf="showReshuffleReview"
+    class="review-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="review-title"
+    aria-describedby="review-description"
+  >
+    <div class="review-card">
+      <h2 id="review-title">Review reshuffle</h2>
+      <p id="review-description">
+        These active collections will be used. Paused collections are excluded.
+      </p>
+      <div class="review-groups">
+        <section>
+          <h3><span class="role-badge role-source">Sources</span> {{ activeSourceCollections.length }}</h3>
+          <ul>
+            <li *ngFor="let collection of activeSourceCollections">
+              <strong>{{ collection.name }}</strong>
+              <span>Priority {{ collection.priority }}</span>
+              <span *ngIf="collection.include_sideboard">Sideboard included</span>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3><span class="role-badge role-target">Targets</span> {{ activeTargetCollections.length }}</h3>
+          <ul>
+            <li *ngFor="let collection of activeTargetCollections">
+              <strong>{{ collection.name }}</strong>
+              <span>Priority {{ collection.priority }}</span>
+              <span *ngIf="collection.include_sideboard">Sideboard included</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="review-actions">
+        <button class="btn btn-secondary" (click)="showReshuffleReview = false">Cancel</button>
+        <button class="btn btn-primary" (click)="confirmReshuffle()">Run reshuffle</button>
+      </div>
+    </div>
+  </section>
+
   <!-- Collections Table -->
   <section class="collections-section">
-    <h2>Collections</h2>
+    <div class="section-heading">
+      <div>
+        <h2>Collections</h2>
+        <p>Switch a collection between source and target, or pause it to exclude it.</p>
+      </div>
+      <span class="collection-count">{{ collections.length }} total</span>
+    </div>
     <div class="table-container">
       <table class="collections-table">
         <thead>
           <tr>
-            <th (click)="sortBy('name')" class="sortable">▲▼ Name</th>
-            <th (click)="sortBy('url')" class="sortable">▲▼ URL</th>
-            <th>Active</th>
-            <th (click)="sortBy('type')" class="sortable">▲▼ Type</th>
-            <th>Include Sideboard</th>
-            <th>Priority</th>
-            <th>Delete</th>
+            <th scope="col" [attr.aria-sort]="sortColumn === 'name' ? (sortAscending ? 'ascending' : 'descending') : 'none'">
+              <button type="button" class="sortable" (click)="sortBy('name')">
+                Name <span class="sort-indicator" aria-hidden="true">{{ sortColumn === 'name' ? (sortAscending ? '↑' : '↓') : '↕' }}</span>
+              </button>
+            </th>
+            <th scope="col" [attr.aria-sort]="sortColumn === 'url' ? (sortAscending ? 'ascending' : 'descending') : 'none'">
+              <button type="button" class="sortable" (click)="sortBy('url')">
+                URL <span class="sort-indicator" aria-hidden="true">{{ sortColumn === 'url' ? (sortAscending ? '↑' : '↓') : '↕' }}</span>
+              </button>
+            </th>
+            <th scope="col">Active</th>
+            <th scope="col" [attr.aria-sort]="sortColumn === 'type' ? (sortAscending ? 'ascending' : 'descending') : 'none'">
+              <button type="button" class="sortable" (click)="sortBy('type')">
+                Role <span class="sort-indicator" aria-hidden="true">{{ sortColumn === 'type' ? (sortAscending ? '↑' : '↓') : '↕' }}</span>
+              </button>
+            </th>
+            <th scope="col">Include Sideboard</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -92,20 +180,25 @@
                 [checked]="collection.active"
                 (change)="toggleActive(i)"
                 class="active-checkbox"
+                [disabled]="loading"
+                [attr.aria-label]="'Active status for ' + collection.name"
               />
             </td>
             <td>
               <div class="toggle-container">
-                <span class="toggle-label">Source</span>
+                <span class="role-badge" [class.role-source]="collection.is_source" [class.role-target]="!collection.is_source">
+                  {{ collection.is_source ? 'Source' : 'Target' }}
+                </span>
                 <label class="toggle-switch">
                   <input
                     type="checkbox"
                     [checked]="!collection.is_source"
                     (change)="toggleType(i)"
+                    [disabled]="loading"
+                    [attr.aria-label]="'Change ' + collection.name + ' to ' + (collection.is_source ? 'target' : 'source')"
                   />
                   <span class="toggle-slider"></span>
                 </label>
-                <span class="toggle-label">Target</span>
               </div>
             </td>
             <td>
@@ -114,6 +207,8 @@
                 [checked]="collection.include_sideboard"
                 (change)="toggleSideboard(i)"
                 class="active-checkbox"
+                [disabled]="loading"
+                [attr.aria-label]="'Include sideboard for ' + collection.name"
               />
             </td>
             <td>
@@ -124,15 +219,19 @@
                 min="1"
                 max="5"
                 class="priority-input"
+                [disabled]="loading"
+                [attr.aria-label]="'Priority for ' + collection.name"
               />
             </td>
             <td>
               <button
                 class="btn btn-delete"
                 (click)="deleteCollection(i)"
-                title="Delete"
+                [disabled]="loading"
+                [attr.aria-label]="'Delete ' + collection.name"
+                title="Delete collection"
               >
-                🗑️
+                Delete
               </button>
             </td>
           </tr>
@@ -143,9 +242,4 @@
       </table>
     </div>
   </section>
-
-  <!-- Loading Overlay -->
-  <div *ngIf="loading" class="loading-overlay">
-    <div class="spinner"></div>
-  </div>
 </div>
