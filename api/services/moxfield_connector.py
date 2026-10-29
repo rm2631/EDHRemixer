@@ -1,4 +1,5 @@
 import logging
+import random
 import cloudscraper
 from time import sleep
 
@@ -10,15 +11,46 @@ SERVICE = "Moxfield"
 
 class MoxfieldConnector:
 
+    RETRIES = 5
+
     @staticmethod
-    def _build_headers() -> dict:
-        return {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Connection": "keep-alive",
-            "Upgrade-Insecure-Requests": "1",
-        }
+    def _new_scraper():
+        # Fresh session + rotating browser fingerprint per attempt; Cloudflare
+        # intermittently 403s a given fingerprint/session.
+        return cloudscraper.create_scraper(
+            browser={
+                "browser": random.choice(["chrome", "firefox"]),
+                "platform": "windows",
+                "mobile": False,
+            },
+            delay=10,
+        )
+
+    @staticmethod
+    def _get(url: str, what: str, id: str, params: dict | None = None):
+        retries = MoxfieldConnector.RETRIES
+        for attempt in range(1, retries + 1):
+            try:
+                response = logged_get(
+                    MoxfieldConnector._new_scraper(),
+                    url,
+                    logger=logger,
+                    service=SERVICE,
+                    attempt=attempt,
+                    max_attempts=retries,
+                    params=params,
+                )
+                if response.status_code == 200:
+                    return response
+            except Exception:
+                if attempt == retries:
+                    raise
+            if attempt < retries:
+                delay = 2 * attempt + random.uniform(0, 1.5)
+                logger.warning("Retrying %s fetch in %.1fs (id=%s)", what, delay, id)
+                sleep(delay)
+        logger.error("Giving up fetching %s (id=%s)", what, id)
+        raise Exception(f"Failed to fetch {what}")
 
     @staticmethod
     def _unpack_response(cards) -> list:
@@ -26,84 +58,32 @@ class MoxfieldConnector:
 
     @staticmethod
     def get_deck_name(id: str, is_binder: bool = False) -> str:
-        scraper = cloudscraper.create_scraper()
-        retries = 3
-
         if is_binder:
             # For binders, use the search endpoint to get tradeBinder object
-            base_url = "https://api2.moxfield.com/v1/trade-binders/{id}/search"
-            params = {
-                "pageNumber": 1,
-                "pageSize": 100,
-                "playStyle": "paperDollars",
-                "sortType": "cardName",
-                "sortDirection": "ascending",
-            }
-            for attempt in range(1, retries + 1):
-                response = logged_get(
-                    scraper,
-                    base_url.format(id=id),
-                    logger=logger,
-                    service=SERVICE,
-                    attempt=attempt,
-                    max_attempts=retries,
-                    headers=MoxfieldConnector._build_headers(),
-                    params=params,
-                )
-                if response.status_code == 200:
-                    break
-                logger.warning("Retrying binder name fetch in 5s (id=%s)", id)
-                sleep(5)  # Wait for 5 seconds before retrying
-            else:
-                logger.error("Giving up fetching binder name (id=%s)", id)
-                raise Exception("Failed to fetch binder name")
-
+            response = MoxfieldConnector._get(
+                f"https://api2.moxfield.com/v1/trade-binders/{id}/search",
+                "binder name",
+                id,
+                params={
+                    "pageNumber": 1,
+                    "pageSize": 100,
+                    "playStyle": "paperDollars",
+                    "sortType": "cardName",
+                    "sortDirection": "ascending",
+                },
+            )
             return response.json()["tradeBinder"]["name"]
-        else:
-            # For decks, use the existing endpoint
-            base_url = "https://api2.moxfield.com/v3/decks/all/" + id
-            for attempt in range(1, retries + 1):
-                response = logged_get(
-                    scraper,
-                    base_url,
-                    logger=logger,
-                    service=SERVICE,
-                    attempt=attempt,
-                    max_attempts=retries,
-                    headers=MoxfieldConnector._build_headers(),
-                )
-                if response.status_code == 200:
-                    break
-                logger.warning("Retrying deck name fetch in 5s (id=%s)", id)
-                sleep(5)  # Wait for 5 seconds before retrying
-            else:
-                logger.error("Giving up fetching deck name (id=%s)", id)
-                raise Exception("Failed to fetch deck name")
 
-            return response.json()["name"]
+        response = MoxfieldConnector._get(
+            "https://api2.moxfield.com/v3/decks/all/" + id, "deck name", id
+        )
+        return response.json()["name"]
 
     @staticmethod
     def get_deck_content(id: str, include_sideboard: bool = False) -> list[dict]:
-        base_url = "https://api2.moxfield.com/v3/decks/all/"
-        scraper = cloudscraper.create_scraper()
-        retries = 3
-        for attempt in range(1, retries + 1):
-            response = logged_get(
-                scraper,
-                base_url + id,
-                logger=logger,
-                service=SERVICE,
-                attempt=attempt,
-                max_attempts=retries,
-                headers=MoxfieldConnector._build_headers(),
-            )
-            if response.status_code == 200:
-                break
-            logger.warning("Retrying deck content fetch in 5s (id=%s)", id)
-            sleep(5)  # Wait for 5 seconds before retrying
-        else:
-            logger.error("Giving up fetching deck content (id=%s)", id)
-            raise Exception("Failed to fetch deck content")
+        response = MoxfieldConnector._get(
+            "https://api2.moxfield.com/v3/decks/all/" + id, "deck content", id
+        )
 
         mainboard = MoxfieldConnector._unpack_response(
             response.json()["boards"]["mainboard"]["cards"]
@@ -137,22 +117,10 @@ class MoxfieldConnector:
             "sortType": "cardName",
             "sortDirection": "ascending",
         }
-        scraper = cloudscraper.create_scraper()
-
         while True:
-            response = logged_get(
-                scraper,
-                base_url.format(id=id),
-                logger=logger,
-                service=SERVICE,
-                headers=MoxfieldConnector._build_headers(),
-                params=params,
+            response = MoxfieldConnector._get(
+                base_url.format(id=id), "binder content", id, params=dict(params)
             )
-            if response.status_code != 200:
-                logger.error(
-                    "Failed to fetch binder content (id=%s, page=%s)", id, pageNumber
-                )
-                raise Exception("Failed to fetch binder content")
 
             new_cards = response.json()["data"]
             cards.extend(new_cards)
