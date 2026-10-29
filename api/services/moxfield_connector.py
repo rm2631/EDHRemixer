@@ -1,5 +1,11 @@
+import logging
 import cloudscraper
 from time import sleep
+
+from services.http_logging import logged_get
+
+logger = logging.getLogger(__name__)
+SERVICE = "Moxfield"
 
 
 class MoxfieldConnector:
@@ -33,31 +39,45 @@ class MoxfieldConnector:
                 "sortType": "cardName",
                 "sortDirection": "ascending",
             }
-            for _ in range(retries):
-                response = scraper.get(
-                    url=base_url.format(id=id),
+            for attempt in range(1, retries + 1):
+                response = logged_get(
+                    scraper,
+                    base_url.format(id=id),
+                    logger=logger,
+                    service=SERVICE,
+                    attempt=attempt,
+                    max_attempts=retries,
                     headers=MoxfieldConnector._build_headers(),
                     params=params,
                 )
                 if response.status_code == 200:
                     break
+                logger.warning("Retrying binder name fetch in 5s (id=%s)", id)
                 sleep(5)  # Wait for 5 seconds before retrying
             else:
+                logger.error("Giving up fetching binder name (id=%s)", id)
                 raise Exception("Failed to fetch binder name")
 
             return response.json()["tradeBinder"]["name"]
         else:
             # For decks, use the existing endpoint
             base_url = "https://api2.moxfield.com/v3/decks/all/" + id
-            for _ in range(retries):
-                response = scraper.get(
-                    url=base_url,
+            for attempt in range(1, retries + 1):
+                response = logged_get(
+                    scraper,
+                    base_url,
+                    logger=logger,
+                    service=SERVICE,
+                    attempt=attempt,
+                    max_attempts=retries,
                     headers=MoxfieldConnector._build_headers(),
                 )
                 if response.status_code == 200:
                     break
+                logger.warning("Retrying deck name fetch in 5s (id=%s)", id)
                 sleep(5)  # Wait for 5 seconds before retrying
             else:
+                logger.error("Giving up fetching deck name (id=%s)", id)
                 raise Exception("Failed to fetch deck name")
 
             return response.json()["name"]
@@ -67,15 +87,22 @@ class MoxfieldConnector:
         base_url = "https://api2.moxfield.com/v3/decks/all/"
         scraper = cloudscraper.create_scraper()
         retries = 3
-        for _ in range(retries):
-            response = scraper.get(
-                url=base_url + id,
+        for attempt in range(1, retries + 1):
+            response = logged_get(
+                scraper,
+                base_url + id,
+                logger=logger,
+                service=SERVICE,
+                attempt=attempt,
+                max_attempts=retries,
                 headers=MoxfieldConnector._build_headers(),
             )
             if response.status_code == 200:
                 break
+            logger.warning("Retrying deck content fetch in 5s (id=%s)", id)
             sleep(5)  # Wait for 5 seconds before retrying
         else:
+            logger.error("Giving up fetching deck content (id=%s)", id)
             raise Exception("Failed to fetch deck content")
 
         mainboard = MoxfieldConnector._unpack_response(
@@ -113,12 +140,18 @@ class MoxfieldConnector:
         scraper = cloudscraper.create_scraper()
 
         while True:
-            response = scraper.get(
-                url=base_url.format(id=id),
+            response = logged_get(
+                scraper,
+                base_url.format(id=id),
+                logger=logger,
+                service=SERVICE,
                 headers=MoxfieldConnector._build_headers(),
                 params=params,
             )
             if response.status_code != 200:
+                logger.error(
+                    "Failed to fetch binder content (id=%s, page=%s)", id, pageNumber
+                )
                 raise Exception("Failed to fetch binder content")
 
             new_cards = response.json()["data"]

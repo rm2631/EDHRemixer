@@ -6,6 +6,9 @@ from collections import Counter, defaultdict
 import pandas as pd
 from io import BytesIO
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class ShuffleManager:
@@ -23,12 +26,19 @@ class ShuffleManager:
 
         cards = []
         for input in active_inputs:
+            logger.info(
+                "Loading %s %s (source=%s)",
+                "deck" if input.is_deck else "binder",
+                input.moxfield_id,
+                input.is_source,
+            )
             if input.is_deck:
                 deck_cards = moxfield_connector.get_deck_content(
                     input.moxfield_id, input.include_sideboard
                 )
             else:
                 deck_cards = moxfield_connector.get_binder_content(input.moxfield_id)
+            logger.info("Loaded %d entries from %s", len(deck_cards), input.moxfield_id)
             for card in deck_cards:
                 for _ in range(card["quantity"]):
                     cards.append(
@@ -255,6 +265,12 @@ class ShuffleManager:
                 )
 
         self._validate_shuffling()
+        logger.info(
+            "Shuffle finished: %d moved, %d still required, %d unused",
+            len(self.allocated_cards),
+            len(self.required_cards),
+            len(self.available_cards),
+        )
         return self._build_excel_file()
 
     def _build_excel_file(self) -> ByteString:

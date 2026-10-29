@@ -123,6 +123,8 @@ This application is configured for deployment on Render using the `render.yaml` 
 
 No additional environment variables are required for basic operation. All Moxfield API calls are made server-side.
 
+- `LOG_LEVEL` (optional, default `INFO`) - Console log verbosity (`DEBUG`, `INFO`, `WARNING`, `ERROR`). Outbound calls to Moxfield and EDHRec are logged at `INFO` (URL, status, latency); `DEBUG` also shows cache hits and low-level HTTP library logs.
+
 ## API Endpoints
 
 - `GET /api/health` - Health check endpoint

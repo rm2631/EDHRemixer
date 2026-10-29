@@ -5,12 +5,17 @@ This module extends the pyedhrec library to provide overall inclusion percentage
 for cards across all Commander decks, not just for specific commanders.
 """
 
+import logging
 import re
 import time
 from typing import Optional, Dict
 import requests
 from bs4 import BeautifulSoup
 from pyedhrec import EDHRec
+
+from services.http_logging import logged_get
+
+logger = logging.getLogger(__name__)
 
 
 class EDHRecExtended(EDHRec):
@@ -52,11 +57,13 @@ class EDHRecExtended(EDHRec):
         """
         # Check cache first
         if card_name in self._cache:
+            logger.debug("EDHRec cache hit for '%s'", card_name)
             return self._cache[card_name]
 
         # Rate limiting - wait at least 0.1 seconds between requests
         time_since_last = time.time() - self._last_request_time
         if time_since_last < 0.1:
+            logger.debug("EDHRec rate limit: sleeping %.2fs", 0.1 - time_since_last)
             time.sleep(0.1 - time_since_last)
 
         try:
@@ -73,7 +80,13 @@ class EDHRecExtended(EDHRec):
             )
 
             # Fetch the page
-            response = requests.get(full_url, timeout=10)
+            response = logged_get(
+                requests,
+                full_url,
+                logger=logger,
+                service="EDHRec",
+                timeout=10,
+            )
             response.raise_for_status()
 
             soup = BeautifulSoup(response.content, "html.parser")
@@ -98,23 +111,25 @@ class EDHRecExtended(EDHRec):
                 self._last_request_time = time.time()
                 return result
             else:
-                print(
-                    f"Warning: Could not find inclusion data for '{card_name}'. Continuing..."
+                logger.warning(
+                    "Could not find inclusion data for '%s'. Continuing...", card_name
                 )
                 self._cache[card_name] = None  # Cache None to avoid retrying
                 self._last_request_time = time.time()
                 return None
 
         except requests.RequestException as e:
-            print(
-                f"Error fetching data from EDHRec for '{card_name}': {e}. Continuing..."
+            logger.error(
+                "Error fetching data from EDHRec for '%s': %s. Continuing...",
+                card_name,
+                e,
             )
             self._cache[card_name] = None  # Cache None to avoid retrying
             self._last_request_time = time.time()
             return None
-        except Exception as e:
-            print(
-                f"Unexpected error getting inclusion for '{card_name}': {e}. Continuing..."
+        except Exception:
+            logger.exception(
+                "Unexpected error getting inclusion for '%s'. Continuing...", card_name
             )
             self._cache[card_name] = None  # Cache None to avoid retrying
             self._last_request_time = time.time()
@@ -160,8 +175,8 @@ class EDHRecExtended(EDHRec):
                             break
                     if result["commander_specific"]:
                         break
-            except Exception as e:
-                print(f"Error getting commander-specific data: {e}")
+            except Exception:
+                logger.exception("Error getting commander-specific data")
 
         return result
 
